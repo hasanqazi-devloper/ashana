@@ -42,15 +42,18 @@ export default function TrustedLogos() {
       {/* HEADER SECTION */}
       <div className="max-w-7xl xl:max-w-[85rem] 2xl:max-w-[95rem] mx-auto px-6 mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
         <div className="space-y-3">
-          <div className="inline-block text-[10px] font-black text-blue-400 tracking-widest uppercase bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-md font-mono">
+          {/* <div className="inline-block text-[10px] font-black text-blue-400 tracking-widest uppercase bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-md font-mono">
             🌐 GLOBAL PLACEMENTS
-          </div>
+          </div> */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase text-white leading-none font-sans">
             OUR ALUMNI WORK <br />
-            <span className="text-[#FFC71E]">AT TOP TECH GIANTS</span>
+            {/* <span className="text-[#FFC71E]"></span> */}
+            <span className="block mt-0 mb-2 py-1 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+              AT TOP TECH GIANTS
+            </span>
           </h2>
         </div>
-        
+
         <div className="max-w-xs border-l-2 border-[#FFC71E] pl-4 py-1">
           <p className="text-zinc-400 text-xs font-bold uppercase tracking-wider leading-relaxed font-sans">
             From Silicon Valley to top domestic hubs, our students are dominating the live software pipelines.
@@ -60,7 +63,7 @@ export default function TrustedLogos() {
 
       {/* LOGOS INFINITE SLIDER CONTAINER */}
       <div className="space-y-6 md:space-y-8 flex flex-col w-full relative z-10">
-        
+
         {/* FIRST ROW: Moving Left to Right (LTR) */}
         <div className="relative w-full flex overflow-x-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]">
           <style>{`
@@ -79,7 +82,7 @@ export default function TrustedLogos() {
               animation: marqueeRTL 35s linear infinite;
             }
           `}</style>
-          
+
           <div className="animate-ltr-pure flex whitespace-nowrap gap-6 items-center py-2 shrink-0">
             {[...topRowLogos, ...topRowLogos, ...topRowLogos].map((item, index) => (
               <div

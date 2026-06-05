@@ -47,9 +47,9 @@ export default function StudentFeedback() {
       
       {/* 🏷️ HEADER SECTION: EXACT MATCH TO APKI SNAPSHOT */}
       <div className="text-center space-y-2 pb-12">
-        <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
+        {/* <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
           OUR PRIDE
-        </p>
+        </p> */}
         <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white   font-sans">
           STUDENT {" "}
           <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">FEEDBACK</span>
