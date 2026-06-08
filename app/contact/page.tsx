@@ -5,10 +5,35 @@ import { ArrowLeft, Send, MessageSquare, Mail, MapPin, CheckCircle2 } from "luci
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  
+  // 🛠️ Step 1: Form ki fields ko track karne ke liye State banayi
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here if needed
+    
+    // 🛠️ Step 2: Official Phone Number aur Message Setup kiya
+    const phoneNumber = "923276381819"; // Aapka contact number bina "+" sign ke
+    
+    // WhatsApp par message bhejte waqt text ko clean aur structured dikhane ke liye format banaya
+    const whatsappMessage = `*🔥 NEW CONTACT INQUIRY - HRD INSTITUTE* \n\n` +
+                            `👤 *Name:* ${formData.fullName}\n` +
+                            `📧 *Email:* ${formData.email}\n` +
+                            `🎯 *Subject:* ${formData.subject}\n\n` +
+                            `📝 *Message:* \n${formData.message}`;
+
+    // URL safe encoding taake spaces aur lines custom format mein crash na hon
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // 🛠️ Step 3: API Gateway banakar browser redirection trigger kiya
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, "_blank");
+
     setSubmitted(true);
   };
 
@@ -101,7 +126,7 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-lg font-bold text-white uppercase tracking-wide">Message Securely Transmitted</h3>
-                  <p className="text-xs text-zinc-400">Thank you, Jani. Our digital helpdesk team will connect with you shortly.</p>
+                  <p className="text-xs text-zinc-400">Thank you, Jani. Opening WhatsApp gate node to dispatch your pipeline details...</p>
                 </div>
               </div>
             ) : (
@@ -113,6 +138,8 @@ export default function ContactPage() {
                       type="text" 
                       required
                       placeholder="e.g. Umair Farooq" 
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:bg-white/[0.04] transition-all"
                     />
                   </div>
@@ -122,6 +149,8 @@ export default function ContactPage() {
                       type="email" 
                       required
                       placeholder="name@example.com" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:bg-white/[0.04] transition-all"
                     />
                   </div>
@@ -133,6 +162,8 @@ export default function ContactPage() {
                     type="text" 
                     required
                     placeholder="e.g. LMS Portal Login Issue / Admission inquiry" 
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:bg-white/[0.04] transition-all"
                   />
                 </div>
@@ -143,6 +174,8 @@ export default function ContactPage() {
                     rows={5}
                     required
                     placeholder="Type your message details here..." 
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:bg-white/[0.04] transition-all resize-none"
                   />
                 </div>

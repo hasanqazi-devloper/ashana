@@ -16,31 +16,24 @@ export default function Footer() {
         {/* 🌐 MAIN MATRIX ROW BLOCK */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 md:gap-8 pb-16 border-b border-white/5">
 
-          {/* COLUMN 1: IDARA BRAND INFORMATION (4 COLS) */}
-          <div className="md:col-span-4 space-y-6">
-            <div className="space-y-3">
-              <h3 className="text-2xl font-black text-white tracking-tighter uppercase font-sans">
-                HRD <span className="text-[#FFC71E]">INSTITUTE</span>
-              </h3>
-              <p className="text-zinc-400 text-xs font-bold leading-relaxed max-w-sm">
-                We don't just teach courses; we build industrial careers. Industrial-grade training engineered for the digital age, recognized globally.
-              </p>
-            </div>
+         {/* COLUMN 1: IDARA BRAND INFORMATION (4 COLS) */}
+<div className="md:col-span-4 space-y-6">
+  <div className="space-y-4"> {/* Margins ko thoda standardize kiya */}
+    
+    {/* 🔥 BRAND LOGO IMAGE INSTANCE */}
+    <div className="flex items-center shrink-0">
+      <img 
+        src="/logo.png" // 👈 Apni public folder wali image ka naam yahan likhein (e.g., image_0e6924.png)
+        alt="HRD Institute Footer Logo"
+        className="h-10 md:h-12 w-auto object-contain brightness-110" // Sharp contrast check added
+      />
+    </div>
 
-            {/* Custom Premium Multan, PK Location Box Widget */}
-            <div className="flex items-center gap-3.5 bg-gradient-to-br from-white/[0.02] to-transparent border border-white/10 rounded-xl p-4 max-w-xs shadow-xl backdrop-blur-sm">
-              <div className="w-9 h-9 rounded-lg bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
-                <svg className="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div className="leading-tight">
-                <h4 className="text-xs font-black text-white uppercase tracking-wider">MULTAN, PAKISTAN</h4>
-                <p className="text-[9px] text-zinc-500 font-extrabold uppercase tracking-widest mt-0.5">HEADCAMPUS & LIVE PIPELINES</p>
-              </div>
-            </div>
-          </div>
+    <p className="text-zinc-400 text-xs font-bold leading-relaxed max-w-sm pt-1">
+      We don't just teach courses; we build industrial careers. Industrial-grade training engineered for the digital age, recognized globally.
+    </p>
+  </div>
+</div>
 
           {/* COLUMN 2: ACADEMY QUICK DIRECT LINKS (2 COLS) */}
           <div className="md:col-span-2 space-y-5">
