@@ -3,115 +3,141 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronRight, ArrowRight , ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export default function About() {
   return (
     <>
-      {/* 🎯 ABOUT SECTION - Adapted for HRD Institute */}
-      <section id="about" className="relative pt-12 md:pt-20 2xl:pt-32 pb-16 bg-[#1E2939] overflow-hidden">
+      {/* 🎯 ABOUT SECTION - Finalized Balanced Padding for All Screens */}
+      <section id="about" className="relative py-14 md:py-20 xl:py-24 bg-[#0b0f19] overflow-hidden flex items-center">
 
-        {/* Background Glow - Kept same as source for VIP match */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] md:w-[600px] h-[200px] bg-blue-600/[0.04] blur-[120px] pointer-events-none" />
+        {/* Background Ambient Glows */}
+        <div className="absolute top-1/4 left-1/4 w-[400px] md:w-[700px] h-[300px] bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] md:w-[600px] h-[300px] bg-cyan-600/[0.02] blur-[130px] pointer-events-none" />
 
-        <div className="max-w-7xl 2xl:max-w-[110rem] mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="max-w-7xl 2xl:max-w-[95rem] mx-auto px-6 sm:px-12 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-center">
 
-            {/* LEFT: Image - Place for your institute graphic */}
+            {/* 🖼️ LEFT: PREMIUM IMAGE FRAME LAYER */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="relative flex items-center justify-center lg:justify-start order-2 lg:order-1"
+              className="relative flex items-center justify-center order-2 lg:order-1 w-full"
             >
-              <div className="absolute w-[50%] h-[50%] bg-blue-600/[0.05] blur-[80px] rounded-full" />
-              <div className="relative z-10 w-full max-w-[320px] md:max-w-[490px] 2xl:max-w-[650px]">
-                {/* 🎯 Placeholder Image - User to create graphic/file at public/about-hrd.png */}
-                <Image
-                  src="/about-hrd.png" // User, apni visual file create karein aur save karein `public/about-hrd.png`
-                  alt="HRD Institute - Practical Training"
-                  width={700}
-                  height={700}
-                  className="w-full h-auto object-contain drop-shadow-2xl"
-                  priority
-                />
+              {/* Outer Ambient Border Glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 blur-xl rounded-[2.5rem] opacity-70 pointer-events-none" />
+              
+              {/* Main Premium Showcase Box */}
+              <div className="relative z-10 w-full p-3 rounded-[2rem] bg-zinc-900/40 border border-white/10 backdrop-blur-md shadow-2xl overflow-hidden aspect-video lg:aspect-square max-w-[480px] lg:max-w-[500px] xl:max-w-[540px] 2xl:max-w-[580px] flex items-center justify-center group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 via-transparent to-cyan-600/10 opacity-60 pointer-events-none" />
+                
+                {/* 🎯 Image Wrapper */}
+                <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/40 border border-white/5">
+                  <Image
+                    src="/about.jpg"
+                    alt="HRD Institute - Practical Training"
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    sizes="(max-w-7xl) 50vw, 40vw"
+                    priority
+                  />
+                  {/* Subtle Dark Overlay Tint */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80" />
+                </div>
               </div>
             </motion.div>
 
-            {/* RIGHT: Text Content - Adapted copy for HRD Institute */}
-            <div className="space-y-6 md:space-y-6 order-1 lg:order-2">
-              <div>
-                <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black tracking-tighter leading-[1] text-white">
-                  Empowering individuals with <br /> production-ready code.
-                  <br />
-                  <span className="block mt-0 mb-2 py-1 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                    Zero theory, Full code.
+            {/* 📝 RIGHT: BALANCED TEXT CONTENT & FEATURES */}
+            <div className="space-y-6 md:space-y-7 order-1 lg:order-2 flex flex-col justify-center">
+              {/* Typography Heading Block */}
+              <div className="space-y-2.5">
+                <span className="text-[10px] md:text-[11px] font-black tracking-[3px] px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 inline-block ">
+                  Must Watch Before Admission
+                </span>
+                <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[2.8rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.2rem] font-black tracking-tight leading-[1.1] text-white ">
+                  What You Will Master: <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                    No Theory, Just Live Projects
                   </span>
                 </h2>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
+              {/* Description Paragraph */}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="space-y-6 md:space-y-8"
+                className="text-zinc-300 text-sm md:text-base font-medium leading-relaxed max-w-xl opacity-90"
               >
-                {/* Paragraph 1 - Re-written for practical tech training */}
-                <p className="text-white text-[16px] md:text-base lg:text-[17px] 2xl:text-xl 3xl:text-2xl font-medium leading-relaxed max-w-xl 2xl:max-w-3xl mx-auto lg:mx-0 opacity-90">
-                  Traditional education focuses on theoretical knowledge, leaving you unprepared for the demands of the modern tech industry. We break this loop.
-                </p>
+                Skip boring lectures. You will actively audit real websites, conduct advanced keyword research, build topical authority, and rank pages on Google—building a live portfolio to win high-paying international clients.
+              </motion.p>
 
-                {/* Paragraph 2 - Re-written */}
-                <p className="text-white text-[16px] md:text-base lg:text-[17px] 2xl:text-xl 3xl:text-2xl font-medium leading-relaxed max-w-xl 2xl:max-w-3xl mx-auto lg:mx-0 opacity-90">
-                  Our core mission at **HRD Institute** is to deliver 100% practical training, transforming passionate learners into production-ready software engineers within months, not years.
-                </p>
+              {/* 🎴 VERTICAL CARDS CONTAINER */}
+              <div className="space-y-3 max-w-xl">
+                {[
+                  {
+                    title: "Guaranteed Internship",
+                    desc: "Top Students get hired in our own Digital Agency.",
+                  },
+                  {
+                    title: "Lifetime Mentorship",
+                    desc: "Free lifetime support from expert mentors.",
+                  },
+                  {
+                    title: "Online Community",
+                    desc: "Connect, network, and grow together.",
+                  }
+                ].map((feat, idx) => (
+                  <div
+                    key={idx}
+                    className="group flex items-center gap-4 p-3.5 rounded-xl bg-[#0d1321]/40 border border-white/10 hover:border-blue-500/50 hover:bg-[#111827]/60 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden text-left"
+                  >
+                    {/* Inner Ambient Glow */}
+                    <div className="absolute -inset-px bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-                {/* Paragraph 3 - Re-written (Hidden on mobile for cleaner layout) */}
-                <p className="text-white text-[16px] md:text-base lg:text-[17px] 2xl:text-xl 3xl:text-2xl font-medium leading-relaxed max-w-xl 2xl:max-w-3xl mx-auto lg:mx-0 opacity-90 hidden md:block">
-                  Aap yahan MERN Stack, AI & ML, App Development (Flutter), aur WordPress par scalable, real-world applications scratch se build karte hain.
-                </p>
+                    {/* Checkmark Circular Status Badge */}
+                    <div className="w-6.5 h-6.5 rounded-full border border-blue-500/30 bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white group-hover:scale-105 transition-all duration-300 shrink-0">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
 
-                {/* Paragraph 4 - Re-written */}
-                <p className="text-white text-[16px] md:text-base lg:text-[17px] 2xl:text-xl 3xl:text-2xl font-medium leading-relaxed max-w-xl 2xl:max-w-3xl mx-auto lg:mx-0 opacity-90">
-                  Serving students nationwide in Pakistan, we provide the mentorship and support you need to jumpstart your career with confidence.
-                </p>
-              </motion.div>
+                    {/* Feature Information Text */}
+                    <div className="flex flex-col gap-0.5">
+                      <h4 className="text-xs md:text-sm font-black text-white uppercase tracking-wider group-hover:text-blue-400 transition-colors duration-200">
+                        {feat.title}
+                      </h4>
+                      <p className="text-[11px] md:text-xs text-zinc-400 font-medium group-hover:text-zinc-300 transition-colors duration-200">
+                        {feat.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-          {/* Buttons Container */}
-<div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 2xl:gap-5 w-full sm:w-auto pt-6 md:pt-8">
+              {/* 🛠️ STRATEGIC ACTION BUTTONS */}
+              {/* <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-2">
+                <Link href="#contact" className="w-full sm:w-auto block">
+                  <button className="group relative overflow-hidden w-full sm:min-w-[170px] h-[46px] rounded-full bg-white text-black font-black text-[11px] tracking-[2px] flex items-center justify-center gap-2 transition-all duration-500 shadow-lg active:scale-95 cursor-pointer uppercase">
+                    <div className="absolute inset-0 w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out group-hover:w-full" />
+                    <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors duration-500">
+                      Enroll Now
+                      <ArrowUpRight size={14} className="group-hover:rotate-45 transition-transform duration-300" />
+                    </span>
+                  </button>
+                </Link>
 
-  {/* 1. COLOR GRADIENT SLIDER BUTTON (Start Project) */}
-  <Link href="#contact" className="w-full sm:w-auto block">
-    <button
-      className="group relative overflow-hidden w-full sm:min-w-[160px] 2xl:min-w-[200px] h-[48px] 2xl:h-[56px] rounded-full bg-white text-black font-black text-[11px] 2xl:text-[13px] tracking-[2px] flex items-center justify-center gap-2 transition-all duration-500 shadow-lg active:scale-95 cursor-pointer"
-    >
-      {/* Blue to Cyan Slider Layer */}
-      <div className="absolute inset-0 w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out group-hover:w-full" />
-      
-      <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors duration-500">
-        Enroll Now
-        <ArrowUpRight size={14} className="2xl:w-5 2xl:h-5 group-hover:rotate-45 transition-transform duration-300" />
-      </span>
-    </button>
-  </Link>
+                <Link href="#feedback" className="w-full sm:w-auto block">
+                  <button className="group relative overflow-hidden w-full sm:min-w-[170px] h-[46px] rounded-full border border-white/20 bg-transparent text-zinc-400 font-bold text-[11px] tracking-[2px] flex items-center justify-center gap-2 transition-all duration-500 active:scale-95 cursor-pointer hover:border-white hover:text-white uppercase">
+                    <span className="absolute inset-0 w-full h-0 bg-white/5 transition-all duration-500 ease-out group-hover:h-full z-0 bottom-0" />
+                    <span className="relative z-10">Feedback</span>
+                  </button>
+                </Link>
+              </div> */}
 
-  {/* 2. SIMPLE OUTLINE BUTTON (View Work) */}
-  <Link href="#feedback" className="w-full sm:w-auto block">
-    <button
-      className="group relative overflow-hidden w-full sm:min-w-[160px] 2xl:min-w-[200px] h-[48px] 2xl:h-[56px] rounded-full border border-white/20 bg-transparent text-zinc-400 font-bold text-[11px] 2xl:text-[13px] tracking-[2px] flex items-center justify-center gap-2 transition-all duration-500 active:scale-95 cursor-pointer hover:border-white hover:text-white"
-    >
-      {/* Simple Slide-up White Fill on Hover to look premium */}
-      <span className="absolute inset-0 w-full h-0 bg-white/5 transition-all duration-500 ease-out group-hover:h-full z-0 bottom-0" />
-      
-      <span className="relative z-10">
-        Feedback
-      </span>
-    </button>
-  </Link>
-  
-</div>
             </div>
           </div>
         </div>

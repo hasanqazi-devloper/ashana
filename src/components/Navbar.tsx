@@ -143,12 +143,12 @@ export default function Navbar() {
 
   // 🔥 Routes updated to dynamic cross-page anchor nodes (/#)
   const links = [
-    { name: "Home", href: "/#home" },
+    // { name: "Home", href: "/#home" },
     { name: "About Us", href: "/#about" },
     { name: "Courses", href: "/#courses" },
     { name: "Feedback", href: "/#feedback" },
     ...dynamicLinks,
-    { name: "Contact Us", href: "/contact" },
+    // { name: "Contact Us", href: "/contact" },
   ];
 
   return (
@@ -178,48 +178,52 @@ export default function Navbar() {
 
       {/* 🔗 DESKTOP NAVIGATION MATRIX */}
       <div className="hidden lg:flex items-center gap-1">
-        {links.map((link) => {
-          const isActive = pathname === link.href;
-          if (link.isDropdown) {
+        {links
+          .filter(link => link.name.toLowerCase() !== 'home' && link.name.toLowerCase() !== 'about')
+          .map((link) => {
+            const isActive = pathname === link.href;
+            if (link.isDropdown) {
+              return (
+                <div key={link.name} className="relative group" onMouseEnter={() => setShowServices(true)} onMouseLeave={() => setShowServices(false)}>
+                  <Link 
+                    href={link.href} 
+                    onClick={(e) => handleScrollToSection(e, link.href)}
+                    className={`flex items-center gap-1 px-3 py-1.5 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-all relative ${isActive || showServices ? "text-white" : "text-zinc-300 hover:text-white"}`}
+                  >
+                    {link.name} <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
+                  </Link>
+                  <AnimatePresence>
+                    {showServices && (
+                      <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} className="absolute top-full left-0 w-56 p-2 bg-black border border-white/10 rounded-2xl shadow-2xl mt-1">
+                        {link.subLinks?.map((sub: any) => (
+                          <Link key={sub.name} href={sub.href} className="block px-4 py-2.5 text-[13px] font-bold text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
             return (
-              <div key={link.name} className="relative group" onMouseEnter={() => setShowServices(true)} onMouseLeave={() => setShowServices(false)}>
-                <Link 
-                  href={link.href} 
-                  onClick={(e) => handleScrollToSection(e, link.href)}
-                  className={`flex items-center gap-1 px-3 py-1.5 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-all relative ${isActive || showServices ? "text-white" : "text-zinc-300 hover:text-white"}`}
-                >
-                  {link.name} <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
-                </Link>
-                <AnimatePresence>
-                  {showServices && (
-                    <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} className="absolute top-full left-0 w-56 p-2 bg-black border border-white/10 rounded-2xl shadow-2xl mt-1">
-                      {link.subLinks?.map((sub: any) => (
-                        <Link key={sub.name} href={sub.href} className="block px-4 py-2.5 text-[13px] font-bold text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                onClick={(e) => handleScrollToSection(e, link.href)}
+                className={`relative px-3 py-1.5 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-all group ${isActive ? "text-blue-500" : "text-zinc-300 hover:text-white"}`}
+              >
+                {link.name}
+                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ease-out" />
+              </Link>
             );
-          }
-          return (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              onClick={(e) => handleScrollToSection(e, link.href)}
-              className={`relative px-3 py-1.5 text-[10px] xl:text-[11px] font-bold uppercase tracking-widest transition-all group ${isActive ? "text-blue-500" : "text-zinc-300 hover:text-white"}`}
-            >
-              {link.name}
-              <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ease-out" />
-            </Link>
-          );
-        })}
+          })}
       </div>
 
-      {/* ⚡ LMS PORTAL LOGIN LINK ACTION */}
-      <div className="flex items-center gap-4 z-50 shrink-0">
+      {/* ⚡ ACTION BUTTONS (LOGIN & ENROLL NOW) */}
+      <div className="flex items-center gap-3 z-50 shrink-0">
+        
+        {/* ORIGINAL LOGIN BUTTON */}
         <a 
           href="https://lms.highrisedigital.io" 
           target="_blank" 
@@ -235,6 +239,22 @@ export default function Navbar() {
           </span>
         </a>
 
+        {/* ENROLL NOW BUTTON (SAME SIZE, DIFFERENT GRADIENT) */}
+        <a 
+          href="/contact" 
+          onClick={(e) => handleScrollToSection(e, "/contact")}
+          className="group relative overflow-hidden hidden lg:flex items-center justify-center font-black text-[11px] uppercase tracking-[2px] h-[44px] px-6 rounded-full bg-zinc-900 text-white border border-white/10 shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer no-underline"
+        >
+          <div className="absolute inset-0 w-0 bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500 ease-out group-hover:w-full" />
+          <span className="relative z-10 flex items-center gap-1.5 group-hover:text-white transition-colors duration-500 ease-out">
+            Enroll Now
+            <svg className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </span>
+        </a>
+
+        {/* MOBILE BURGER MENU */}
         <button 
           onClick={() => setIsOpen(!isOpen)} 
           className="lg:hidden text-white p-2 focus:outline-none rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-md"
@@ -247,39 +267,50 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="absolute top-full left-0 right-0 bg-[#070707]/98 backdrop-blur-xl border border-white/10 lg:hidden flex flex-col gap-0 p-4 mt-2 rounded-3xl pointer-events-auto shadow-2xl overflow-hidden">
-            {links.map((link) => {
-              if (link.isDropdown) {
-                return (
-                  <div key={link.name} className="border-b border-white/5 flex flex-col">
-                    <div className="flex items-center justify-between py-3.5 px-4 active:bg-white/5 transition-colors rounded-xl">
-                      <Link href={link.href} onClick={(e) => handleScrollToSection(e, link.href)} className="text-[11px] font-bold uppercase tracking-widest text-zinc-300 flex-1">{link.name}</Link>
-                      <button onClick={(e) => { e.preventDefault(); setMobileServicesOpen(!mobileServicesOpen); }} className="p-1 text-zinc-400 hover:text-white transition-colors">
-                        {mobileServicesOpen ? <Minus size={14} /> : <Plus size={14} />}
-                      </button>
-                    </div>
-                    <motion.div initial={false} animate={{ height: mobileServicesOpen ? "auto" : 0, opacity: mobileServicesOpen ? 1 : 0 }} className="overflow-hidden bg-white/[0.02] rounded-xl mx-2">
-                      <div className="flex flex-col py-1 pl-4 border-l border-white/10 my-1 gap-1">
-                        {link.subLinks?.map((sub: any) => (
-                          <Link key={sub.name} href={sub.href} className="text-[11px] font-bold uppercase tracking-widest text-zinc-300 hover:text-white py-3.5 px-4 rounded-lg block transition-colors" onClick={() => setIsOpen(false)}>{sub.name}</Link>
-                        ))}
+            {links
+              .filter(link => link.name.toLowerCase() !== 'home' && link.name.toLowerCase() !== 'about')
+              .map((link) => {
+                if (link.isDropdown) {
+                  return (
+                    <div key={link.name} className="border-b border-white/5 flex flex-col">
+                      <div className="flex items-center justify-between py-3.5 px-4 active:bg-white/5 transition-colors rounded-xl">
+                        <Link href={link.href} onClick={(e) => handleScrollToSection(e, link.href)} className="text-[11px] font-bold uppercase tracking-widest text-zinc-300 flex-1">{link.name}</Link>
+                        <button onClick={(e) => { e.preventDefault(); setMobileServicesOpen(!mobileServicesOpen); }} className="p-1 text-zinc-400 hover:text-white transition-colors">
+                          {mobileServicesOpen ? <Minus size={14} /> : <Plus size={14} />}
+                        </button>
                       </div>
-                    </motion.div>
-                  </div>
+                      <motion.div initial={false} animate={{ height: mobileServicesOpen ? "auto" : 0, opacity: mobileServicesOpen ? 1 : 0 }} className="overflow-hidden bg-white/[0.02] rounded-xl mx-2">
+                        <div className="flex flex-col py-1 pl-4 border-l border-white/10 my-1 gap-1">
+                          {link.subLinks?.map((sub: any) => (
+                            <Link key={sub.name} href={sub.href} className="text-[11px] font-bold uppercase tracking-widest text-zinc-300 hover:text-white py-3.5 px-4 rounded-lg block transition-colors" onClick={() => setIsOpen(false)}>{sub.name}</Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  );
+                }
+                return (
+                  <Link key={link.name} href={link.href} onClick={(e) => handleScrollToSection(e, link.href)} className="text-[11px] font-bold uppercase tracking-widest text-zinc-300 py-3.5 px-4 border-b border-white/5 last:border-0">{link.name}</Link>
                 );
-              }
-              return (
-                <Link key={link.name} href={link.href} onClick={(e) => handleScrollToSection(e, link.href)} className="text-[11px] font-bold uppercase tracking-widest text-zinc-300 py-3.5 px-4 border-b border-white/5 last:border-0">{link.name}</Link>
-              );
-            })}
-            <div className="pt-4 px-4">
+              })}
+            
+            {/* MOBILE BUTTONS CONTAINER */}
+            <div className="pt-4 px-4 flex flex-col gap-3">
               <a 
                 href="https://lms.highrisedigital.io"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
-                className="block text-center w-full bg-blue-600 border border-blue-600 text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-xl transition-all duration-300 shadow-lg shadow-blue-600/10 no-underline"
+                className="block text-center w-full bg-white text-black font-black text-xs uppercase tracking-wider py-3.5 rounded-xl transition-all duration-300 shadow-lg no-underline"
               >
                 Login
+              </a>
+              <a 
+                href="#enroll"
+                onClick={(e) => { setIsOpen(false); handleScrollToSection(e, "/#enroll"); }}
+                className="block text-center w-full bg-zinc-900 border border-white/10 text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-xl transition-all duration-300 shadow-lg no-underline"
+              >
+                Enroll Now
               </a>
             </div>
           </motion.div>

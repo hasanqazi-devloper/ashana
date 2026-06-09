@@ -6,40 +6,34 @@ import { motion } from "framer-motion";
 
 const awardLogos = [
   { src: "/ahrefs.png", alt: "Ahrefs" },
-  // { src: "/brands/highlevel.png", alt: "HighLevel" },
-  // { src: "/brands/google-analisis.png", alt: "Google Analytics" },
-  // { src: "/brands/google-patner.png", alt: "Google Partner" },
   { src: "/wp-partner.png", alt: "WordPress Partner" },
-  // { src: "/brands/linkedin.png", alt: "LinkedIn" },
-  // { src: "/meta-business-logo.png", alt: "Meta Business" },
   { src: "/semrush.png", alt: "Semrush" },
   { src: "/shopify.png", alt: "Shopify" },
-  // { src: "/brands/tic-tok.png", alt: "TikTok" },
   { src: "/woocommerce-partner.png", alt: "WooCommerce Partner" },
   { src: "/HSN_white.png", alt: "HSN White" },
 ];
 
 export default function HeroSlider() {
-  const duplicated = [...awardLogos, ...awardLogos];
+  const duplicated = [...awardLogos, ...awardLogos, ...awardLogos];
 
   return (
     <section className="relative py-4 md:py-5 2xl:py-5 bg-[#111827] overflow-hidden border-y border-white/5">
 
       {/* Side Fades: Ambient Edge Blending */}
-      <div className="absolute inset-y-0 left-0 w-16 md:w-32  to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-16 md:w-32  to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#111827] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#111827] to-transparent z-10 pointer-events-none" />
 
       {/* Track Wrapper (Height & Padding Synced with ClientTrust) */}
       <div className="w-full relative h-20 md:h-24 2xl:h-32 flex items-center overflow-hidden px-4 sm:px-6">
         <motion.div
           className="flex gap-4 md:gap-8 2xl:gap-16 w-max items-center"
-          animate={{ x: ["0%", "-50%"] }}
+          animate={{ x: ["0%", "-33.33%"] }} 
           transition={{
-            duration: 35,
+            duration: 25,
             ease: "linear",
             repeat: Infinity
           }}
-          whileHover={{ transition: { duration: 70 } }}
+          whileHover={{ transition: { duration: 50 } }}
         >
           {duplicated.map((logo, index) => (
             <div

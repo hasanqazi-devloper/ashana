@@ -44,15 +44,15 @@ export default function StudentFeedback() {
 
   return (
     <section id="feedback" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 border-t border-white/5">
-      
+
       {/* 🏷️ HEADER SECTION: EXACT MATCH TO APKI SNAPSHOT */}
       <div className="text-center space-y-2 pb-12">
-        {/* <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
-          OUR PRIDE
-        </p> */}
+        <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
+          What Our Students Say About Us
+        </p>
         <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white   font-sans">
-          STUDENT {" "}
-          <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">FEEDBACK</span>
+          Students'  {" "}
+          <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Feedback</span>
         </h2>
         {/* Underline matching screenshot style precisely */}
         <div className="w-16 h-[3px] bg-[#FFC71E] mx-auto mt-3 rounded-full" />
@@ -68,16 +68,16 @@ export default function StudentFeedback() {
         {/* Dynamic Infinite Track Loop (Runs Twice for Seamless Continuity) */}
         <div className="flex gap-4 animate-marquee whitespace-nowrap min-w-full will-change-transform group-hover:[animation-play-state:paused]">
           {[...feedbacks, ...feedbacks].map((card, idx) => (
-            <div 
+            <div
               key={idx}
               className="inline-block w-[300px] sm:w-[360px] bg-[#0c0c0e] border border-white/5 rounded-xl p-4 shadow-2xl whitespace-normal select-none flex-shrink-0"
             >
               {/* Card Meta Header Layer */}
               <div className="flex items-start justify-between gap-3 w-full">
                 <div className="flex items-center gap-2.5">
-                  <img 
-                    src={card.avatar} 
-                    alt={card.name} 
+                  <img
+                    src={card.avatar}
+                    alt={card.name}
                     className="w-9 h-9 rounded-full object-cover border border-white/10"
                   />
                   <div className="leading-tight">

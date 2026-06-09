@@ -16,14 +16,16 @@ export default function CoursesSection() {
         {/* 🏷️ HEADER SECTION: MATCHING APKI REFERENCE SCREENSHOT */}
         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 text-center md:text-left border-b border-white/5 pb-6">
           <div className="space-y-2">
-            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white uppercase font-sans">
-              SKILL<span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">TRACKS</span>
+            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white  font-sans">
+              Master {" "}
+              <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Pathway</span>
             </h2>
           </div>
 
           {/* Subtext aligned right matching the precise reference stroke line */}
-          <div className="text-[10px] md:text-xs font-black text-zinc-500 uppercase tracking-[3px] font-mono whitespace-nowrap">
-            ENGINEERED FOR <span className="text-white">PROFESSIONAL EXCELLENCE</span>
+          <div className="text-[10px] md:text-xs font-black text-white  tracking-[3px] font-block whitespace-nowrap">
+            Build Fast.
+            <span className="text-white"> Rank First. Earn Dollars.</span>
           </div>
         </div>
 
@@ -36,22 +38,24 @@ export default function CoursesSection() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-extrabold text-[10px] tracking-widest uppercase">
                 <Sparkles size={10} /> Ultimate Combo Track
               </div>
-              <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">
-                Become a High-Income Digital Engineer
+              <h3 className="text-xl md:text-2xl font-black text-white  tracking-tight">
+                Master the Dual Power of Web Dev & SEO
               </h3>
-              <p className="text-zinc-400 text-sm font-medium leading-relaxed">
-                No filler. Learn how to architect lightning-fast conversion-optimized WordPress sites and combine it with advanced production-grade Technical SEO frameworks that dominate search engines.
-              </p>
+              <p className="text-white text-sm font-medium leading-relaxed">
+                Learn to build fast WordPress websites and rank them on Google. Master both skills to land high-paying international clients              </p>
             </div>
 
             {/* Core Tech Stack Included Pills */}
             <div className="space-y-3 pt-4 border-t border-white/5">
               <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-500">Modules Covered:</h4>
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5"><Globe size={12} className="text-blue-400" /> WordPress Architecture</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5"><Search size={12} className="text-emerald-400" /> Technical SEO Masterclass</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5">⚡ Speed Optimization</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5">🛠️ Custom Theme Dev</span>
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5"><Globe size={12} className="text-blue-400" /> Wordpress Website
+                </span>
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5"><Search size={12} className="text-emerald-400" /> Search Engine Optimization</span>
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> Content Writing
+
+                </span>
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> Guest Posting</span>
               </div>
             </div>
           </div>
@@ -63,27 +67,67 @@ export default function CoursesSection() {
             <div className="flex-1 flex flex-col justify-between space-y-6">
               <div className="space-y-2">
                 {/* Reference style track badge info */}
-                <div className="inline-block bg-[#FFC71E]/10 border border-[#FFC71E]/20 text-[#FFC71E] font-black text-[10px] tracking-wider px-2.5 py-0.5 rounded-md uppercase">
+                <div className="inline-block bg-[#FFC71E]/10 border border-[#FFC71E]/20 text-[#FFC71E] font-black text-[10px] tracking-wider px-2.5 py-0.5 rounded-md ">
                   SEO-WP-2026
                 </div>
-                <h4 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight pt-1 leading-tight">
-                  WordPress & SEO <br />Mastery Track
+                <h4 className="text-2xl md:text-3xl font-black text-white  tracking-tight pt-1 leading-tight">
+                  WordPress & SEO
+                  <br />Mastery Track
                 </h4>
               </div>
 
               {/* Learning Outcomes List */}
-              <ul className="space-y-2.5 text-zinc-400 text-xs md:text-sm font-semibold">
-                <li className="flex items-center gap-2 text-white/90">
-                  <CheckCircle size={14} className="text-blue-500 flex-shrink-0" /> Full-Stack Custom Custom WordPress Architecture
+              <ul className="space-y-4 text-zinc-400 text-xs md:text-sm font-semibold">
+                {/* Point 1: Custom Web Development */}
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                  <div className="flex flex-col gap-0.5 text-left">
+                    <span className="font-black text-white uppercase tracking-wider text-[11px] md:text-xs">
+                      Custom Web Development
+                    </span>
+                    <span className="text-zinc-400 font-medium text-xs">
+                      Build fast, high-converting WordPress websites from scratch.
+                    </span>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle size={14} className="text-blue-500 flex-shrink-0" /> Semantic Keyword Clusters & Silo Architecture
+
+                {/* Point 2: Advanced SEO */}
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                  <div className="flex flex-col gap-0.5 text-left">
+                    <span className="font-black text-white uppercase tracking-wider text-[11px] md:text-xs">
+                      Advanced SEO
+                    </span>
+                    <span className="text-zinc-400 font-medium text-xs">
+                      Fix Core Web Vitals and rank pages higher on Google.
+                    </span>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle size={14} className="text-blue-500 flex-shrink-0" /> Core Web Vitals Optimization (100% Score)
+
+                {/* Point 3: Smart Content Strategy */}
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                  <div className="flex flex-col gap-0.5 text-left">
+                    <span className="font-black text-white uppercase tracking-wider text-[11px] md:text-xs">
+                      Smart Content Strategy
+                    </span>
+                    <span className="text-zinc-400 font-medium text-xs">
+                      Master semantic keyword mapping and silo architectures.
+                    </span>
+                  </div>
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle size={14} className="text-blue-500 flex-shrink-0" /> Live Project Deployment & Freelancing Blueprint
+
+                {/* Point 4: Global Freelancing Blueprint */}
+                <li className="flex items-start gap-2.5">
+                  <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                  <div className="flex flex-col gap-0.5 text-left">
+                    <span className="font-black text-white uppercase tracking-wider text-[11px] md:text-xs">
+                      Global Freelancing Blueprint
+                    </span>
+                    <span className="text-zinc-400 font-medium text-xs">
+                      Work on live projects and land high-paying international clients.
+                    </span>
+                  </div>
                 </li>
               </ul>
             </div>
