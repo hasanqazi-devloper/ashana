@@ -9,6 +9,7 @@ import Feedback from '@/src/components/Feedback';
 import Comparison from '@/src/components/Comparison';
 import CTA from '@/src/components/CTA';
 import Footer from '@/src/components/Footer';
+import WhatsAppBtn from '@/src/components/WhatsAppBtn';
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Comparison />
       <CTA />
      {/* <Footer />  */}
+      <WhatsAppBtn />
     </main>
   );
 }

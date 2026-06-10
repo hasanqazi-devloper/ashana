@@ -1,71 +1,82 @@
 "use client";
-import { Star, ThumbsUp, MessageSquare, Share2, MoreHorizontal } from "lucide-react";
+import { Star, ThumbsUp, MessageSquare, Share2, MoreHorizontal, MapPin } from "lucide-react";
 
 export default function StudentFeedback() {
-  // Exact high-fidelity feedback data matching matching UI structures
+  // Exact high-fidelity feedback data with location additions
   const feedbacks = [
     {
-      name: "Urooj Irshad",
+      name: "Amna Bibi",
+      location: "Multan, PK",
       date: "October 22, 2025",
-      text: "Skill Education Institute provides a professional and supportive learning environment. The courses are well structured and focused on practical skills that truly help in career development. The instructors are knowledgeable and always available for guidance.",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop"
+      text: "Sir aap ne humein sirf parhaya nahi, balke har student ko individually guide kiya aur hamesha motivate bhi kiya.Thank you so much for all your efforts, support, and patience with us.May Allah bless you with endless happiness, health, and success. Ameen",
+      avatar: "https://images.unsplash.com/photo-1723831005305-7046e0e9d34b?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
     },
     {
-      name: "M Bilal",
+      name: "M Rizwan",
+      location: "Lahore, PK",
       date: "November 10, 2025",
-      text: "Mash'Allah! Highly recommended ecosystem. Excellent teaching methodology by Sir Umair Farooq. Very clear explanations on complex technical architecture layouts.",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop"
+      text: "Alhamdoullaha order complete 💯✅ Market best price available Tat instant Sir first order complete on email AP ke dawo ka sadhka ha Both both Mubarak ho sir g",
+      avatar: "https://images.unsplash.com/photo-1723051948247-01e16b6a1481?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFraXN0YW5pJTIwYm95c3xlbnwwfHwwfHx8MA%3D%3D"
     },
     {
-      name: "Muhammad Asif Abdullah Qadri",
+      name: "Zeeshan Ali",
+      location: "Faisalabad, PK",
       date: "November 28, 2025",
-      text: "Till yet class going extra ordinary special training style of Sir Umair Farooq! Real-world enterprise pipelines are covered step by step without skipping critical production configurations.",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop"
+      text: "Honestly, pure practical work hai.Baqi institutes ki tarah sirf definitions nahi ratwaty yahan. High Rise Digital me pehle din se live websites par kaam karwate hain. Mera Technical SEO ka darr bilkul khanat ho gya hai. Best SEO course in Pakistan hands down.",
+      avatar: "https://images.unsplash.com/photo-1669804227127-0876cb0f5474?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBha2lzdGFuaSUyMGJveXN8ZW58MHx8MHx8fDA%3D"
     },
     {
-      name: "Mohsin Hussain Malak",
+      name: "Sana Nawaz",
+      location: "Karachi, PK",
       date: "December 04, 2025",
-      text: "I have been learning WordPress & SEO Optimization at Skills Education for the past two months, and my experience has been exceptional! The instructors are highly knowledgeable, friendly, and always ready to help.",
-      avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=150&auto=format&fit=crop"
+      text: "Best decision for my freelancing career Fiverr pe kafi time se orders nahi aa rahe thay. Course ke dauran sir ne jo client acquisition ki strategies batayein, us se LinkedIn ke zariye direct UK ka client mila hai. High Rise Digital team ka support kamaal hai.",
+      avatar: "https://plus.unsplash.com/premium_photo-1682096108814-b53765f48ba5?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
     },
     {
-      name: "Faiqa Khan",
+      name: "Hamza Shah",
+      location: "Rawalpindi, PK",
       date: "October 18, 2025",
-      text: "SkillsEducation.pk has matched my expectations! These courses are not only basic but also provide extensive practical data. I've learned a lot to bootstrap my custom freelancing agency career.",
-      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop"
+      text: "No boring PPT slides, strictly live projects!.Mujhe sab se achi baat ye lagi k yahan koi ratta system nahi hai. Hum ne khud live keyword research ki, content silos banaye, aur errors fix kiye. Agar koi sach me professional skill seekhna chahta hai to zaroor join kare.",
+      avatar: "https://images.unsplash.com/photo-1647151481397-95e581943ac1?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGFraXN0YW5pJTIwYm95c3xlbnwwfHwwfHx8MA%3D%3D"
     },
     {
-      name: "Usman Hashmi",
+      name: "Kiran Fatima",
+      location: "Islamabad, PK",
       date: "September 15, 2025",
-      text: "At first, I thought theory classes would be boring, but the coding legacy is premium here! Every single day is packed with practical tasks and custom live case studies. Highly recommended to everyone!",
-      avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=150&auto=format&fit=crop"
-    }
+      text: "Alhamdulillah, highly recommended! Mera background IT ka nahi tha to mujhe lagta tha Technical SEO bohot mushkil hoga. Par High Rise Digital ke mentors itne cooperative hain k har step basic se samjhaya. Laptop par live practice karne ka bohot faida hua",
+      avatar: "https://images.unsplash.com/photo-1599842057874-37393e9342df?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
+    },
+    {
+      name: "Arsalan Khan",
+      location: "Peshawar, PK",
+      date: "September 15, 2025",
+      text: "Worth every single rupee.Market me log basic cheezon ke itne paise charge kar rahe hain. High Rise Digital me advanced core web vitals aur speed optimization bhi live seekhne ko mili. Verification portal wala system bhi bohot professional hai.",
+      avatar: "https://images.unsplash.com/photo-1711374316403-2bfa31ae9c2a?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBha2lzdGFuaSUyMGJveXN8ZW58MHx8MHx8fDA%3D"
+    },
   ];
 
   return (
     <section id="feedback" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 border-t border-white/5">
 
-      {/* 🏷️ HEADER SECTION: EXACT MATCH TO APKI SNAPSHOT */}
+      {/* 🏷️ HEADER SECTION */}
       <div className="text-center space-y-2 pb-12">
         <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
           What Our Students Say About Us
         </p>
-        <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white   font-sans">
-          Students'  {" "}
+        <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white font-sans">
+          Students' {" "}
           <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Feedback</span>
         </h2>
-        {/* Underline matching screenshot style precisely */}
         <div className="w-16 h-[3px] bg-[#FFC71E] mx-auto mt-3 rounded-full" />
       </div>
 
       {/* 🔄 INFINITE ROW SCROLLER CONTAINER */}
       <div className="relative w-full flex items-center overflow-x-hidden group py-4">
-        {/* Fade Left Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#030303] to-transparent z-20 pointer-events-none" />
-        {/* Fade Right Overlays */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#030303] to-transparent z-20 pointer-events-none" />
+        {/* Overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#111827] to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#111827] to-transparent z-20 pointer-events-none" />
 
-        {/* Dynamic Infinite Track Loop (Runs Twice for Seamless Continuity) */}
+        {/* Dynamic Infinite Track Loop */}
         <div className="flex gap-4 animate-marquee whitespace-nowrap min-w-full will-change-transform group-hover:[animation-play-state:paused]">
           {[...feedbacks, ...feedbacks].map((card, idx) => (
             <div
@@ -81,9 +92,16 @@ export default function StudentFeedback() {
                     className="w-9 h-9 rounded-full object-cover border border-white/10"
                   />
                   <div className="leading-tight">
-                    <h4 className="text-[12px] font-bold text-zinc-200 tracking-tight flex items-center gap-1">
-                      {card.name}
-                    </h4>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <h4 className="text-[12px] font-bold text-zinc-200 tracking-tight">
+                        {card.name}
+                      </h4>
+                      {/* 📍 Added Location Badge with exact adjustments */}
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-zinc-800 text-[9px] text-[#10B981] font-bold tracking-tight">
+                        <MapPin size={8} className="stroke-[2.5]" />
+                        {card.location}
+                      </span>
+                    </div>
                     <p className="text-[9px] text-zinc-500 font-medium mt-0.5">{card.date}</p>
                   </div>
                 </div>
@@ -120,7 +138,7 @@ export default function StudentFeedback() {
         </div>
       </div>
 
-      {/* Global CSS Styles injected dynamically for smooth performance layout handles */}
+      {/* Global CSS Styles */}
       <style jsx global>{`
         .animate-marquee {
           animation: marquee 30s linear infinite;

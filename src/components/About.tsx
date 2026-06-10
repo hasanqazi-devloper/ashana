@@ -16,21 +16,21 @@ export default function About() {
         <div className="absolute bottom-1/4 right-1/4 w-[400px] md:w-[600px] h-[300px] bg-cyan-600/[0.02] blur-[130px] pointer-events-none" />
 
         <div className="max-w-7xl 2xl:max-w-[95rem] mx-auto px-6 sm:px-12 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
 
-            {/* 🖼️ LEFT: PREMIUM IMAGE FRAME LAYER */}
+            {/* 🖼️ LEFT: PREMIUM IMAGE FRAME LAYER (Optimized Width & Structure) */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="relative flex items-center justify-center order-2 lg:order-1 w-full"
+              className="relative flex items-center justify-center order-2 lg:order-1 w-full lg:col-span-6 xl:col-span-6"
             >
               {/* Outer Ambient Border Glow */}
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 blur-xl rounded-[2.5rem] opacity-70 pointer-events-none" />
               
-              {/* Main Premium Showcase Box */}
-              <div className="relative z-10 w-full p-3 rounded-[2rem] bg-zinc-900/40 border border-white/10 backdrop-blur-md shadow-2xl overflow-hidden aspect-video lg:aspect-square max-w-[480px] lg:max-w-[500px] xl:max-w-[540px] 2xl:max-w-[580px] flex items-center justify-center group">
+              {/* Main Premium Showcase Box - Increased max-widths and switched to wide aspect ratios */}
+              <div className="relative z-10 w-full p-3 rounded-[2rem] bg-zinc-900/40 border border-white/10 backdrop-blur-md shadow-2xl overflow-hidden aspect-[4/3] sm:aspect-video lg:aspect-[1.15/1] xl:aspect-[1.2/1] max-w-full sm:max-w-[550px] lg:max-w-none flex items-center justify-center group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 via-transparent to-cyan-600/10 opacity-60 pointer-events-none" />
                 
                 {/* 🎯 Image Wrapper */}
@@ -40,7 +40,7 @@ export default function About() {
                     alt="HRD Institute - Practical Training"
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    sizes="(max-w-7xl) 50vw, 40vw"
+                    sizes="(max-w-7xl) 50vw, 45vw"
                     priority
                   />
                   {/* Subtle Dark Overlay Tint */}
@@ -50,13 +50,13 @@ export default function About() {
             </motion.div>
 
             {/* 📝 RIGHT: BALANCED TEXT CONTENT & FEATURES */}
-            <div className="space-y-6 md:space-y-7 order-1 lg:order-2 flex flex-col justify-center">
+            <div className="space-y-6 md:space-y-7 order-1 lg:order-2 lg:col-span-6 xl:col-span-6 flex flex-col justify-center w-full">
               {/* Typography Heading Block */}
               <div className="space-y-2.5">
-                <span className="text-[10px] md:text-[11px] font-black tracking-[3px] px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 inline-block ">
+                <span className="text-[10px] md:text-[11px] font-black tracking-[3px] px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 inline-block">
                   Must Watch Before Admission
                 </span>
-                <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[2.8rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.2rem] font-black tracking-tight leading-[1.1] text-white ">
+                <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[2.8rem] lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-[4.2rem] font-black tracking-tight leading-[1.1] text-white">
                   What You Will Master: <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
                     No Theory, Just Live Projects
@@ -117,26 +117,6 @@ export default function About() {
                   </div>
                 ))}
               </div>
-
-              {/* 🛠️ STRATEGIC ACTION BUTTONS */}
-              {/* <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-2">
-                <Link href="#contact" className="w-full sm:w-auto block">
-                  <button className="group relative overflow-hidden w-full sm:min-w-[170px] h-[46px] rounded-full bg-white text-black font-black text-[11px] tracking-[2px] flex items-center justify-center gap-2 transition-all duration-500 shadow-lg active:scale-95 cursor-pointer uppercase">
-                    <div className="absolute inset-0 w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out group-hover:w-full" />
-                    <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors duration-500">
-                      Enroll Now
-                      <ArrowUpRight size={14} className="group-hover:rotate-45 transition-transform duration-300" />
-                    </span>
-                  </button>
-                </Link>
-
-                <Link href="#feedback" className="w-full sm:w-auto block">
-                  <button className="group relative overflow-hidden w-full sm:min-w-[170px] h-[46px] rounded-full border border-white/20 bg-transparent text-zinc-400 font-bold text-[11px] tracking-[2px] flex items-center justify-center gap-2 transition-all duration-500 active:scale-95 cursor-pointer hover:border-white hover:text-white uppercase">
-                    <span className="absolute inset-0 w-full h-0 bg-white/5 transition-all duration-500 ease-out group-hover:h-full z-0 bottom-0" />
-                    <span className="relative z-10">Feedback</span>
-                  </button>
-                </Link>
-              </div> */}
 
             </div>
           </div>

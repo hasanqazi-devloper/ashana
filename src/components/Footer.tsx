@@ -16,35 +16,35 @@ export default function Footer() {
         {/* 🌐 MAIN MATRIX ROW BLOCK */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 md:gap-8 pb-16 border-b border-white/5">
 
-         {/* COLUMN 1: IDARA BRAND INFORMATION (4 COLS) */}
-<div className="md:col-span-4 space-y-6">
-  <div className="space-y-4"> {/* Margins ko thoda standardize kiya */}
-    
-    {/* 🔥 BRAND LOGO IMAGE INSTANCE */}
-    <div className="flex items-center shrink-0">
-      <img 
-        src="/logo.png" // 👈 Apni public folder wali image ka naam yahan likhein (e.g., image_0e6924.png)
-        alt="HRD Institute Footer Logo"
-        className="h-10 md:h-12 w-auto object-contain brightness-110" // Sharp contrast check added
-      />
-    </div>
+          {/* COLUMN 1: IDARA BRAND INFORMATION (4 COLS) */}
+          <div className="md:col-span-4 space-y-6">
+            <div className="space-y-4"> {/* Margins ko thoda standardize kiya */}
 
-    <p className="text-zinc-400 text-xs font-bold leading-relaxed max-w-sm pt-1">
-      We don't just teach courses; we build industrial careers. Industrial-grade training engineered for the digital age, recognized globally.
-    </p>
-  </div>
-</div>
+              {/* 🔥 BRAND LOGO IMAGE INSTANCE */}
+              <div className="flex items-center shrink-0">
+                <img
+                  src="/logo.png" // 👈 Apni public folder wali image ka naam yahan likhein (e.g., image_0e6924.png)
+                  alt="HRD Institute Footer Logo"
+                  className="h-10 md:h-12 w-auto object-contain brightness-110" // Sharp contrast check added
+                />
+              </div>
+
+              <p className="text-white text-xs font-bold leading-relaxed max-w-sm pt-1">
+                Empowering youth with practical skills, global certifications, and lifetime mentorship.
+              </p>
+            </div>
+          </div>
 
           {/* COLUMN 2: ACADEMY QUICK DIRECT LINKS (2 COLS) */}
           <div className="md:col-span-2 space-y-5">
             <h4 className="text-[11px] font-black text-white uppercase tracking-[3px] border-l-2 border-[#FFC71E] pl-3 leading-none">
               ACADEMY
             </h4>
-            <ul className="space-y-3 text-xs font-bold text-zinc-400">
+            <ul className="space-y-3 text-xs font-bold text-white">
               <li><Link href="#about" className="hover:text-white transition-colors block">About Us</Link></li>
               <li><Link href="#courses" className="hover:text-white transition-colors block">Master Courses</Link></li>
               {/* <li><Link href="#faqs" className="hover:text-white transition-colors block">Help & FAQs</Link></li> */}
-              <li><Link href="#certificate" className="hover:text-white transition-colors block">Verify Certificate</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors block">Contact US</Link></li>
             </ul>
           </div>
 
@@ -53,7 +53,7 @@ export default function Footer() {
             <h4 className="text-[11px] font-black text-white uppercase tracking-[3px] border-l-2 border-blue-600 pl-3 leading-none">
               LEGAL INFO
             </h4>
-            <ul className="space-y-3 text-xs font-bold text-zinc-400">
+            <ul className="space-y-3 text-xs font-bold text-white">
               {/* 🔗 DIRECT ROUTES CONNECTED */}
               <li>
                 <Link href="/privacy-policy" className="hover:text-white transition-colors block">

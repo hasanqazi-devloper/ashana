@@ -220,48 +220,48 @@ export default function Navbar() {
           })}
       </div>
 
-      {/* ⚡ ACTION BUTTONS (LOGIN & ENROLL NOW) */}
-      <div className="flex items-center gap-3 z-50 shrink-0">
-        
-        {/* ORIGINAL LOGIN BUTTON */}
-        <a 
-          href="https://lms.highrisedigital.io" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="group relative overflow-hidden hidden lg:flex items-center justify-center font-black text-[11px] uppercase tracking-[2px] h-[44px] px-6 rounded-full bg-white text-black shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer no-underline"
-        >
-          <div className="absolute inset-0 w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out group-hover:w-full" />
-          <span className="relative z-10 flex items-center gap-1.5 group-hover:text-white transition-colors duration-500 ease-out">
-            Login
-            <svg className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </span>
-        </a>
+   {/* ⚡ ACTION BUTTONS (LOGIN & ENROLL NOW) */}
+<div className="flex items-center gap-3 z-50 shrink-0">
+  
+  {/* ORIGINAL LOGIN BUTTON */}
+  <a 
+    href="https://lms.highrisedigital.io" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="group relative overflow-hidden hidden lg:flex items-center justify-center font-black text-[11px] uppercase tracking-[2px] h-[44px] px-6 rounded-full bg-white text-black border border-transparent shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer no-underline"
+  >
+    <div className="absolute inset-0 w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out group-hover:w-full" />
+    <span className="relative z-10 flex items-center gap-1.5 group-hover:text-white transition-colors duration-500 ease-out">
+      Login
+      <svg className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </span>
+  </a>
 
-        {/* ENROLL NOW BUTTON (SAME SIZE, DIFFERENT GRADIENT) */}
-        <a 
-          href="/contact" 
-          onClick={(e) => handleScrollToSection(e, "/contact")}
-          className="group relative overflow-hidden hidden lg:flex items-center justify-center font-black text-[11px] uppercase tracking-[2px] h-[44px] px-6 rounded-full bg-zinc-900 text-white border border-white/10 shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer no-underline"
-        >
-          <div className="absolute inset-0 w-0 bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500 ease-out group-hover:w-full" />
-          <span className="relative z-10 flex items-center gap-1.5 group-hover:text-white transition-colors duration-500 ease-out">
-            Enroll Now
-            <svg className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </span>
-        </a>
+  {/* ENROLL NOW BUTTON */}
+  <a 
+    href="/contact" 
+    onClick={(e) => handleScrollToSection(e, "/contact")}
+    className="group relative overflow-hidden hidden lg:flex items-center justify-center font-black text-[11px] uppercase tracking-[2px] h-[44px] px-6 rounded-full bg-zinc-900 text-white border border-white/10 shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer no-underline"
+  >
+    <div className="absolute inset-0 w-0 bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500 ease-out group-hover:w-full" />
+    <span className="relative z-10 flex items-center gap-1.5 group-hover:text-white transition-colors duration-500 ease-out">
+      Enroll Now
+      <svg className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </span>
+  </a>
 
-        {/* MOBILE BURGER MENU */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)} 
-          className="lg:hidden text-white p-2 focus:outline-none rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-md"
-        >
-          {isOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
+  {/* MOBILE BURGER MENU */}
+  <button 
+    onClick={() => setIsOpen(!isOpen)} 
+    className="lg:hidden text-white p-2 focus:outline-none rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-md"
+  >
+    {isOpen ? <X size={20} /> : <Menu size={20} />}
+  </button>
+</div>
 
       {/* MOBILE RESPONSIVE ACCORDION */}
       <AnimatePresence>
