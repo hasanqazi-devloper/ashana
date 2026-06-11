@@ -111,12 +111,12 @@ export default function ComparisonSection() {
         </div>
 
         {/* Bottom Lock badge verification indicator */}
-        <div className="flex items-center justify-center gap-2 p-4 bg-white/[0.02] border border-white/10 rounded-xl max-w-2xl mx-auto text-center">
+        {/* <div className="flex items-center justify-center gap-2 p-4 bg-white/[0.02] border border-white/10 rounded-xl max-w-2xl mx-auto text-center">
           <ShieldCheck size={16} className="text-[#FFC71E] flex-shrink-0" />
           <p className="text-white text-[10px] md:text-xs font-bold uppercase tracking-wider">
             Verified structural comparison. Choose production competence over simple theory.
           </p>
-        </div>
+        </div> */}
 
       </div>
     </section>

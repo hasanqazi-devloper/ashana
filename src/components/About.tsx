@@ -15,7 +15,7 @@ export default function About() {
         <div className="absolute top-1/4 left-1/4 w-[400px] md:w-[700px] h-[300px] bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] md:w-[600px] h-[300px] bg-cyan-600/[0.02] blur-[130px] pointer-events-none" />
 
-        <div className="max-w-7xl 2xl:max-w-[95rem] mx-auto px-6 sm:px-12 relative z-10 w-full">
+        <div className="max-w-7xl 2xl:max-w-[120rem] mx-auto px-6 sm:px-12 relative z-10 ">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
 
             {/* 🖼️ LEFT: PREMIUM IMAGE FRAME LAYER (Optimized Width & Structure) */}
@@ -36,7 +36,7 @@ export default function About() {
                 {/* 🎯 Image Wrapper */}
                 <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/40 border border-white/5">
                   <Image
-                    src="/about.jpg"
+                    src="/about11.jpg"
                     alt="HRD Institute - Practical Training"
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

@@ -1,8 +1,32 @@
 "use client";
+import React, { useState } from "react";
 import Link from "next/link";
-import { CheckCircle, Globe, Search, ArrowRight, Sparkles } from "lucide-react";
+import { 
+  CheckCircle, 
+  Globe, 
+  Search, 
+  ArrowRight, 
+  Sparkles,
+  ChevronDown,
+  X,
+  Compass
+} from "lucide-react";
 
 export default function CoursesSection() {
+  // 📝 Popup Modal Open/Close States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeModule, setActiveModule] = useState<number | null>(null);
+
+  // 📝 Roadmap FAQ Content Data Array
+  const roadmapModules = [
+    { title: "Module 1: SEO Basics & Keyword Research", details: "Introduction to Search Engines, Niche Selection, Intent Analysis, and Advanced Competitor Keyword Spying Tools." },
+    { title: "Module 2: On-Page Optimization Secrets", details: "Meta Tags Architecture, Content Optimization, Internal Linking Strategies, and URL Structuring for High Rankings." },
+    { title: "Module 3: Technical SEO Mastery", details: "Robots.txt, Sitemap configuration, Core Web Vitals optimization, Schema Markup implementation, and Site Speed hacks." },
+    { title: "Module 4: Advanced Link Building (Off-Page)", details: "Guest Posting Blueprint, Email Outreach Tactics, Competitor Backlink Reversing, and Safe Anchor Text distribution." },
+    { title: "Module 5: Local SEO & Google Maps Mastery", details: "Google Business Profile optimization, Local Citations, Review acquisition strategy, and ranking in the local 3-pack." },
+    { title: "Module 6: Analytics, Audits & Freelancing", details: "Google Search Console, GA4 setup, Complete Site Audits using Screaming Frog/Ahrefs, and landing high-ticket SEO clients." }
+  ];
+
   return (
     <section
       id="courses"
@@ -13,17 +37,16 @@ export default function CoursesSection() {
 
       <div className="relative z-10 max-w-7xl xl:max-w-[85rem] mx-auto px-6 w-full space-y-12">
 
-        {/* 🏷️ HEADER SECTION: MATCHING APKI REFERENCE SCREENSHOT */}
+        {/* 🏷️ HEADER SECTION */}
         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 text-center md:text-left border-b border-white/5 pb-6">
           <div className="space-y-2">
-            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white  font-sans">
+            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white font-sans">
               Master {" "}
               <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Pathway</span>
             </h2>
           </div>
 
-          {/* Subtext aligned right matching the precise reference stroke line */}
-          <div className="text-[10px] md:text-xs font-black text-white  tracking-[3px] font-block whitespace-nowrap">
+          <div className="text-[10px] md:text-xs font-black text-white tracking-[3px] font-block whitespace-nowrap">
             Build Fast.
             <span className="text-white"> Rank First. Earn Dollars.</span>
           </div>
@@ -32,45 +55,61 @@ export default function CoursesSection() {
         {/* 🗴 MASTER COURSE PRESENTATION LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-4">
 
-          {/* LEFT COLUMN: WHAT YOU WILL MASTER INFO BOX */}
+          {/* 🟦 LEFT COLUMN: ORIGINAL INFO BOX WITH ADDED ROADMAP BUTTON */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-6 bg-[#111827] border border-white/5 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-extrabold text-[10px] tracking-widest uppercase">
                 <Sparkles size={10} /> Ultimate Combo Track
               </div>
-              <h3 className="text-xl md:text-2xl font-black text-white  tracking-tight">
+              <h3 className="text-xl md:text-2xl font-black text-white tracking-tight">
                 Master the Dual Power of Web Dev & SEO
               </h3>
               <p className="text-white text-sm font-medium leading-relaxed">
-                Learn to build fast WordPress websites and rank them on Google. Master both skills to land high-paying international clients              </p>
+                Learn to build fast WordPress websites and rank them on Google. Master both skills to land high-paying international clients              
+              </p>
             </div>
 
             {/* Core Tech Stack Included Pills */}
             <div className="space-y-3 pt-4 border-t border-white/5">
               <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-500">Modules Covered:</h4>
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5"><Globe size={12} className="text-blue-400" /> Wordpress Website
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5">
+                  <Globe size={12} className="text-blue-400" /> Wordpress Website
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5"><Search size={12} className="text-emerald-400" /> Search Engine Optimization</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> Content Writing
-
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5">
+                  <Search size={12} className="text-emerald-400" /> Search Engine Optimization
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> Guest Posting</span>
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> 
+                  Content Writing
+                </span>
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> 
+                  Guest Posting
+                </span>
               </div>
+            </div>
+
+            {/* 🗺️ DYNAMIC ROADMAP TRIGGER BUTTON ADDED AT THE END */}
+            <div className="w-full pt-2">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs uppercase tracking-[2px] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_4px_30px_rgba(59,130,246,0.4)] hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+              >
+                <Compass className="w-4 h-4" />
+                View SEO Mastery Roadmap
+              </button>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: PREMIUM HIGH-CONTRAST FLAGSHIP CARD */}
+          {/* 🟨 RIGHT COLUMN: UNTOUCHED ORIGINAL CONTENT CARD */}
           <div className="lg:col-span-7 relative group bg-gradient-to-br from-[#0B1220] to-[#030303] border-2 border-white/10 hover:border-blue-500/30 rounded-2xl overflow-hidden p-6 md:p-8 flex flex-col md:flex-row justify-between gap-6 transition-all duration-300 shadow-xl">
 
             {/* Left side of the single layout */}
             <div className="flex-1 flex flex-col justify-between space-y-6">
               <div className="space-y-2">
-                {/* Reference style track badge info */}
                 <div className="inline-block bg-[#FFC71E]/10 border border-[#FFC71E]/20 text-[#FFC71E] font-black text-[10px] tracking-wider px-2.5 py-0.5 rounded-md ">
                   SEO-WP-2026
                 </div>
-                <h4 className="text-2xl md:text-3xl font-black text-white  tracking-tight pt-1 leading-tight">
+                <h4 className="text-2xl md:text-3xl font-black text-white tracking-tight pt-1 leading-tight">
                   WordPress & SEO
                   <br />Mastery Track
                 </h4>
@@ -78,7 +117,6 @@ export default function CoursesSection() {
 
               {/* Learning Outcomes List */}
               <ul className="space-y-4 text-zinc-400 text-xs md:text-sm font-semibold">
-                {/* Point 1: Custom Web Development */}
                 <li className="flex items-start gap-2.5">
                   <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
                   <div className="flex flex-col gap-0.5 text-left">
@@ -91,7 +129,6 @@ export default function CoursesSection() {
                   </div>
                 </li>
 
-                {/* Point 2: Advanced SEO */}
                 <li className="flex items-start gap-2.5">
                   <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
                   <div className="flex flex-col gap-0.5 text-left">
@@ -104,7 +141,6 @@ export default function CoursesSection() {
                   </div>
                 </li>
 
-                {/* Point 3: Smart Content Strategy */}
                 <li className="flex items-start gap-2.5">
                   <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
                   <div className="flex flex-col gap-0.5 text-left">
@@ -117,7 +153,6 @@ export default function CoursesSection() {
                   </div>
                 </li>
 
-                {/* Point 4: Global Freelancing Blueprint */}
                 <li className="flex items-start gap-2.5">
                   <CheckCircle size={15} className="text-blue-500 flex-shrink-0 mt-0.5" />
                   <div className="flex flex-col gap-0.5 text-left">
@@ -132,26 +167,21 @@ export default function CoursesSection() {
               </ul>
             </div>
 
-            {/* Right side of the single layout: Pricing Block matching your screenshot aesthetics */}
+            {/* Right side: Pricing Block */}
             <div className="md:w-[220px] bg-white/[0.02] border border-white/5 rounded-xl p-5 flex flex-col justify-between text-center md:text-left h-full min-h-[180px]">
               <div className="space-y-1">
                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest leading-none">Investment</p>
                 <div className="pt-2 leading-none">
-                  {/* Reference style yellow solid pricing display */}
-                  <span className="text-[22px] font-black text-[#FFC71E] tracking-tight">Rs 19,999</span>
+                  <span className="text-[22px] font-black text-[#FFC71E] tracking-tight">Rs 9,999</span>
                   <span className="text-[11px] text-zinc-500 line-through block font-bold mt-1">Rs 35,000</span>
                 </div>
               </div>
 
-              {/* Card Action Button */}
-              <Link href="#contact" className="w-full pt-4 md:pt-0 block">
+              <Link href="/contact" className="w-full pt-4 md:pt-0 block">
                 <button
                   className="group relative overflow-hidden w-full h-[48px] 2xl:h-[56px] rounded-full bg-white text-black font-black text-[11px] 2xl:text-[13px] tracking-[2px] uppercase flex items-center justify-center gap-2 transition-all duration-500 shadow-lg active:scale-95 cursor-pointer"
                 >
-                  {/* Blue to Cyan Hover Effect Gradient Layer */}
                   <div className="absolute inset-0 w-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 ease-out group-hover:w-full" />
-
-                  {/* Button Text & Icon Layer */}
                   <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors duration-500 ease-out">
                     Enroll Now
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
@@ -163,8 +193,67 @@ export default function CoursesSection() {
           </div>
 
         </div>
-
       </div>
+
+      {/* 🚀 ROADMAP ACCORDION MODAL POPUP */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="relative w-full max-w-xl bg-[#0b0f19] border border-white/10 rounded-2xl shadow-2xl p-6 overflow-hidden flex flex-col max-h-[85vh]">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+              <div className="text-left">
+                <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 block">Ecosystem Roadmap</span>
+                <h3 className="text-lg font-black text-white uppercase italic tracking-wide">SEO Mastery Course Modules</h3>
+              </div>
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="p-1.5 rounded-lg bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Content - FAQ Accordions */}
+            <div className="flex-1 overflow-y-auto space-y-3 pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+              {roadmapModules.map((module, index) => {
+                const isOpen = activeModule === index;
+                return (
+                  <div 
+                    key={index} 
+                    className="border border-white/5 rounded-xl bg-[#0d1220]/60 overflow-hidden transition-all duration-300"
+                  >
+                    <button
+                      onClick={() => setActiveModule(isOpen ? null : index)}
+                      className="w-full flex items-center justify-between p-4 text-left font-black text-xs sm:text-sm text-zinc-200 hover:text-blue-400 hover:bg-white/[0.01] transition-all cursor-pointer select-none"
+                    >
+                      <span className={`${isOpen ? 'text-blue-400' : ''}`}>{module.title}</span>
+                      <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-300 shrink-0 ml-2 ${isOpen ? 'rotate-180 text-blue-400' : ''}`} />
+                    </button>
+
+                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-40 border-t border-white/5' : 'max-h-0'}`}>
+                      <p className="p-4 text-xs font-medium text-zinc-400 leading-relaxed bg-black/20 text-left">
+                        {module.details}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Modal Footer Cross Button */}
+            <div className="border-t border-white/10 pt-4 mt-4">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="w-full py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white hover:bg-zinc-800 hover:border-zinc-700 font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer"
+              >
+                Close Roadmap
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
     </section>
   );
 }

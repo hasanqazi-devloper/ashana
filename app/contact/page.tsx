@@ -1,11 +1,13 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, Loader2, MessageCircle } from "lucide-react";
+import { supabase } from "@/src/components/lib/supabase";
 
 export default function StudentEnrollmentForm() {
-  // 🛠️ FIX: Yeh teenon states function ke start mein lazmi honi chahiye
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     course: "",
     fullName: "",
@@ -21,286 +23,323 @@ export default function StudentEnrollmentForm() {
     agree: false,
   });
 
-  // Ab is function par koi error nahi asakta
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.agree) {
-      setSubmitted(true);
+    if (!formData.agree) return alert("Kindly accept the terms and conditions.");
+
+    setLoading(true);
+
+    try {
+      // Step A: Background mein official Supabase Secure Account register karein
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (authError) throw authError;
+
+      const userUUID = authData?.user?.id;
+
+      if (userUUID) {
+        // Step B: Student Ka Mukammal Data Profiles Table Mein Inject Karein
+        const { error: profileError } = await supabase.from("profiles").insert({
+          id: userUUID,
+          full_name: formData.fullName,
+          father_name: formData.fatherName,
+          email: formData.email,
+          phone_number: formData.phoneNumber,
+          cnic: formData.cnic,
+          city: formData.city,
+          age: parseInt(formData.age) || 18,
+          gender: formData.gender,
+          address: formData.address,
+          course_slug: formData.course,
+          fee_status: "Unpaid", // Base state setting initialized as pending approval
+          role: "student"
+        });
+
+        if (profileError) throw profileError;
+
+        // Step C: Also map an enrollment initialization node
+        const { error: enrollError } = await supabase.from("enrollments").insert({
+          student_id: userUUID,
+          course_id: formData.course === "wordpress-seo" ? 1 : formData.course === "fullstack-dev" ? 2 : 3,
+          progress: 0
+        });
+
+        if (enrollError) throw enrollError;
+
+        setSubmitted(true);
+      }
+    } catch (error: any) {
+      alert(`Registration Mismatch Error: ${error.message || "Connection Interrupted"}`);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  // WhatsApp Redirect Handler Function Node
+  const sendWhatsAppReceipt = () => {
+    const adminWhatsAppNumber = "923001234567"; // 👈 Yahan apna exact WhatsApp Number lagayein (Country Code ke sath)
+    const structuredText = `🚨 *NEW HRD LMS ENROLLMENT* 🚨%0A%0A*Name:* ${formData.fullName}%0A*Father Name:* ${formData.fatherName}%0A*Course:* ${formData.course.toUpperCase()}%0A*Phone:* ${formData.phoneNumber}%0A*CNIC:* ${formData.cnic}%0A%0A_Maine form register kar diya hai. Kindly meri fee verify karke mera dashboard account status unlock/approve kar dein. Fee screenshot neeche attached hai:_`;
+
+    window.open(`https://api.whatsapp.com/send?phone=${adminWhatsAppNumber}&text=${structuredText}`, "_blank");
   };
 
   return (
     <main className="min-h-screen bg-[#0b0f19] flex flex-col lg:flex-row font-sans pt-20 sm:pt-24 lg:pt-0 selection:bg-[#7bc143] selection:text-white relative overflow-hidden">
 
-      {/* 🔵 LEFT SIDE: PREMIUM MARKETING & TRUST BANNER */}
-      <section className="w-full lg:w-[42%] bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#1d4ed8] text-white p-8 sm:p-12 lg:p-16 lg:pt-28 flex flex-col justify-between relative min-h-[550px] lg:min-h-screen border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-10 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
+      {/* 🔵 LEFT SIDE: MARKETING BANNER (NEON BLUE PREMIUM EDITION) */}
+      <section className="w-full lg:w-[42%] bg-gradient-to-br from-[#030712] via-[#09152e] to-[#021b3a] text-white p-8 sm:p-12 lg:p-16 lg:pt-28 flex flex-col justify-between relative min-h-[750px] lg:min-h-screen border-b lg:border-b-0 lg:border-r border-white/5 overflow-hidden">
 
-        <div className="space-y-2 max-w-[220px] relative z-10">
-          <div className="bg-black/40 backdrop-blur-md text-white p-3 rounded-xl flex items-center gap-2 border border-white/10 shadow-2xl">
-            <div className="bg-amber-500 text-black font-black px-1.5 py-0.5 rounded text-xs tracking-tight">
-              Skills
+        {/* Ultra Modern High-End Neon Blue Glow Radial Effects */}
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-[#00f2ff]/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-20 -right-20 w-80 h-80 bg-blue-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
+
+        {/* Top Badge Meta Info */}
+        <div className="space-y-2 max-w-[240px] relative z-10">
+          {/* <div className="bg-black/60 backdrop-blur-xl text-white p-3 rounded-2xl flex items-center gap-2.5 border border-white/10 shadow-2xl">
+            <div className="bg-gradient-to-r from-[#00f2ff] to-[#0070ff] text-black font-black px-2 py-0.5 rounded-lg text-[10px] tracking-tight uppercase shadow-[0_0_15px_rgba(0,242,255,0.4)]">
+              LMS Live
             </div>
-            <div className="text-[10px] uppercase font-bold tracking-wider leading-none text-white">
-              Skills Education <br />
-              <span className="text-[9px] font-medium text-zinc-400">Enrollment 2026</span>
+            <div className="text-[10px] uppercase font-black tracking-widest leading-none text-white">
+              HRD SKILLS <br />
+              <span className="text-[9px] font-bold text-zinc-400 tracking-normal">ADMISSIONS 2026</span>
+            </div>
+          </div> */}
+        </div>
+
+        {/* Main Brand Core Stack Content */}
+        <div className="my-auto py-10 lg:py-6 space-y-8 max-w-xl relative z-10">
+          <div className="space-y-4">
+            <div className="w-16 h-[4px] bg-[#00f2ff] rounded-full shadow-[0_0_15px_rgba(0,242,255,0.6)]" />
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black tracking-tighter uppercase leading-[1.02] text-white">
+              LMS REGISTRATION <br />
+              <span className="bg-gradient-to-r from-[#00f2ff] via-[#00a2ff] to-[#3b82f6] bg-clip-text text-transparent drop-shadow-sm">
+                START LEARNING
+              </span><br />
+              📚💡
+            </h1>
+            <p className="text-xs sm:text-sm font-medium leading-relaxed text-white max-w-md border-l-2 border-[#00f2ff] pl-4">
+              Create your secure industrial account to access top-tier frameworks, monitor milestones, and lock elite freelancing career paths.
+            </p>
+          </div>
+
+          {/* ⚡ NEON BLUE HOVER STYLE VALUE CARDS NODE */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div className="bg-zinc-950/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1 hover:border-[#00f2ff]/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300 group cursor-pointer">
+              <span className="text-lg">🎯</span>
+              <h4 className="text-xs font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors">Live Projects</h4>
+              <p className="text-[10px] text-zinc-400 font-medium leading-tight">Hand-on practical portfolio building labs.</p>
+            </div>
+
+            <div className="bg-zinc-950/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1 hover:border-[#00f2ff]/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300 group cursor-pointer">
+              <span className="text-lg">💰</span>
+              <h4 className="text-xs font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors">Earning Path</h4>
+              <p className="text-[10px] text-zinc-400 font-medium leading-tight">Advanced monetization masterclasses blueprint.</p>
+            </div>
+
+            <div className="bg-zinc-950/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1 hover:border-[#00f2ff]/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300 group cursor-pointer">
+              <span className="text-lg">🔥</span>
+              <h4 className="text-xs font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors">1-1 Support</h4>
+              <p className="text-[10px] text-zinc-400 font-medium leading-tight">Dedicated server support channels with experts.</p>
+            </div>
+          </div>
+
+          {/* 📍 OFFICE LOCATION METRIC BLOCK */}
+          <div className="pt-4 flex items-start gap-3 bg-zinc-950/20 border border-white/5 p-4 rounded-xl max-w-md">
+            <div className="w-8 h-8 rounded-lg bg-[#00f2ff]/10 flex items-center justify-center text-[#00f2ff] shrink-0 border border-[#00f2ff]/20 shadow-[0_0_10px_rgba(0,242,255,0.1)]">
+              📍
+            </div>
+            <div className="space-y-0.5">
+              <h5 className="text-[11px] font-black uppercase text-white tracking-wider">Headquarters Location</h5>
+              <p className="text-xs font-bold text-zinc-400 leading-tight">
+                HRD Institute, Multan, Pakistan.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="my-auto py-8 lg:py-6 space-y-6 max-w-md relative z-10">
-          <div className="w-12 h-[4px] bg-amber-500 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight uppercase leading-[1.1] text-white">
-            LMS Registration <br />
-            <span className="text-amber-400 drop-shadow-md flex items-center gap-2">
-              Start Learning 📚💡
-            </span>
-          </h1>
-          <p className="text-sm lg:text-base font-medium leading-relaxed text-zinc-200 max-w-sm border-l-2 border-amber-500 pl-4">
-            Create your account to access courses, track your progress, and continue your learning journey 🚀✨
-          </p>
+        {/* 🏆 BOTTOM FOOTER: PREMIUM TRAINED COUNTER */}
+        {/* ELITE NATIONWIDE TRUST BADGE */}
+        <div className="flex items-center gap-4 border-l border-white/10 pl-6 h-10 w-full sm:w-auto justify-center sm:justify-start">
 
-          <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-            <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 backdrop-blur-md shadow-xl transition-all hover:border-amber-500/30">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_#f59e0b]" />
-                <span className="text-[10px] font-black uppercase tracking-wider text-amber-300">Head Campus</span>
-              </div>
-              <p className="text-xs font-black text-white mt-1.5 uppercase tracking-wide">Multan Development Block</p>
-              <p className="text-[11px] text-zinc-400 font-medium mt-0.5">Punjab, Pakistan</p>
+          <div className="flex items-center gap-4 text-left bg-transparent p-0">
+            {/* 👥 AVATAR STACK BLOCK (Overlapping Real Live Images) */}
+            <div className="flex -space-x-3.5 items-center isolation-auto">
+              {[
+                "https://images.unsplash.com/photo-1669804227127-0876cb0f5474?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBha2lzdGFuaSUyMGJveXN8ZW58MHx8MHx8fDA%3D",
+                "https://plus.unsplash.com/premium_photo-1682096108814-b53765f48ba5?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D",
+                "https://images.unsplash.com/photo-1647151481397-95e581943ac1?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGFraXN0YW5pJTIwYm95c3xlbnwwfHwwfHx8MA%3D%3D",
+                "https://images.unsplash.com/photo-1599842057874-37393e9342df?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D",
+                "https://images.unsplash.com/photo-1711374316403-2bfa31ae9c2a?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBha2lzdGFuaSUyMGJveXN8ZW58MHx8MHx8fDA%3D"
+              ].map((src, idx) => (
+                <div
+                  key={idx}
+                  className="w-9 h-9 rounded-full border-2 border-[#111827] ring-1 ring-emerald-500/40 overflow-hidden bg-zinc-900 shrink-0 transform hover:scale-110 hover:z-10 transition-all duration-300"
+                >
+                  <img
+                    src={src}
+                    alt={`Student ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
 
-            <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 backdrop-blur-md shadow-xl transition-all hover:border-white/20">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400">Support Pipeline</span>
-              </div>
-              <p className="text-xs font-black text-white mt-1.5 uppercase tracking-wide">Live Student Desk</p>
-              <p className="text-[11px] text-zinc-400 font-medium mt-0.5">Response Within 24 Hours</p>
+            {/* 📈 DATA TEXT BLOCK */}
+            <div className="flex flex-col justify-center leading-none">
+              <h4 className="text-xl font-black text-white tracking-tight flex items-center gap-0.5 uppercase">
+                150<span className="text-blue-500 font-black">+</span>
+              </h4>
+              <p className="text-[10px] text-white font-black uppercase tracking-widest mt-1.5 whitespace-nowrap">
+                Students Trained.
+              </p>
             </div>
-          </div>
-        </div>
-
-        <div className="pt-6 flex items-center gap-3 border-t border-white/10 relative z-10">
-          <div className="flex -space-x-2.5 overflow-hidden">
-            {[
-              "https://images.unsplash.com/photo-1669804227127-0876cb0f5474?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBha2lzdGFuaSUyMGJveXN8ZW58MHx8MHx8fDA%3D",
-              "https://plus.unsplash.com/premium_photo-1682096108814-b53765f48ba5?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D",
-              "https://images.unsplash.com/photo-1647151481397-95e581943ac1?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGFraXN0YW5pJTIwYm95c3xlbnwwfHwwfHx8MA%3D%3D",
-              "https://images.unsplash.com/photo-1599842057874-37393e9342df?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBha2lzdGFuaSUyMGdpcmx8ZW58MHx8MHx8fDA%3D",
-              "https://images.unsplash.com/photo-1711374316403-2bfa31ae9c2a?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBha2lzdGFuaSUyMGJveXN8ZW58MHx8MHx8fDA%3D"
-            ].map((img, i) => (
-              <div key={i} className="inline-block h-8 w-8 rounded-full ring-2 ring-blue-900 overflow-hidden relative bg-zinc-800">
-                <img src={img} alt="Scholar Stack" className="h-full w-full object-cover" />
-              </div>
-            ))}
-          </div>
-          <div>
-            <span className="text-[10px] font-black tracking-widest text-zinc-400 uppercase block leading-none">Global Community</span>
-            <span className="text-sm font-black text-white tracking-tight mt-0.5 block">30,000+ SCHOLARS</span>
           </div>
         </div>
       </section>
 
-      {/* ⚪ RIGHT SIDE: PRODUCTION SECURE STUDENT ENROLLMENT FORM */}
-      <section className="w-full lg:w-[58%] bg-[#0d1220] p-6 sm:p-12 lg:p-16 lg:pt-28 flex items-center relative">
-        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#7bc143]/[0.02] blur-[130px] rounded-full pointer-events-none" />
-
+      {/* ⚪ RIGHT SIDE: FORM / SUCCESS MATRIX */}
+      {/* ⚪ RIGHT SIDE: FORM / SUCCESS MATRIX (NEON BLUE PREMIUM REDESIGN) */}
+      <section className="w-full lg:w-[58%] bg-[#0b0f19] p-6 sm:p-12 lg:p-16 lg:pt-28 flex items-center relative border-t lg:border-t-0 border-white/5">
         <div className="w-full max-w-2xl mx-auto relative z-10">
 
           {submitted ? (
-            <div className="border border-zinc-800 bg-[#131a2b] shadow-2xl rounded-2xl p-8 md:p-12 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-[#7bc143]/10 text-[#7bc143] flex items-center justify-center mx-auto shadow-md">
+            /* 🔥 SUCCESS WHATSAPP REDIRECT ENGINE BLOCK */
+            <div className="border border-white/10 bg-[#0d1527] shadow-[0_20px_50px_rgba(0,242,255,0.05)] rounded-2xl p-8 md:p-12 text-center space-y-6 animate-in fade-in zoom-in-95 duration-300">
+              <div className="w-16 h-16 rounded-full bg-[#00f2ff]/10 text-[#00f2ff] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(0,242,255,0.2)] border border-[#00f2ff]/30">
                 <CheckCircle2 size={32} className="stroke-[2.5]" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Registration Transmitted</h3>
-                <p className="text-sm text-zinc-400 max-w-sm mx-auto leading-relaxed font-medium">
-                  Your LMS registration details have been securely deployed. Check your dashboard for activation.
+                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Form Registered Successfully!</h3>
+                <p className="text-sm text-zinc-400 max-w-sm mx-auto leading-relaxed">
+                  Aapka form portal ledger mein save ho chuka hai. Ab neeche diye gaye button par click karke admin ko WhatsApp par <strong className="text-[#00f2ff] font-bold">Fee Deposit Screenshot</strong> send karein taake aapka batch unlock kiya ja sake.
                 </p>
               </div>
+
+              <button
+                type="button"
+                onClick={sendWhatsAppReceipt}
+                className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-black text-sm uppercase tracking-[1.5px] shadow-[0_10px_30px_rgba(37,211,102,0.2)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer"
+              >
+                <MessageCircle size={18} fill="white" />
+                Send Fee Screenshot via WhatsApp
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
-
-              <div className="space-y-1 text-left border-l-[3px] border-[#7bc143] pl-4">
-                <span className="text-[10px] font-black uppercase tracking-[2.5px] text-[#7bc143] block">New Admission</span>
+              {/* 📋 Section Header with Neon Blue Border Accent */}
+              <div className="space-y-1 text-left border-l-[3px] border-[#00f2ff] pl-4 shadow-[inset_10px_0_10px_-10px_rgba(0,242,255,0.2)]">
+                <span className="text-[10px] font-black uppercase tracking-[2.5px] text-[#00f2ff] block">New Admission</span>
                 <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white uppercase leading-none">Student Enrollment</h2>
-                <p className="text-[11px] font-bold uppercase tracking-wide text-zinc-400 pt-0.5">Please provide accurate details for your LMS ID</p>
               </div>
 
-              <div className="p-4 bg-zinc-900/40 border border-zinc-800/80 rounded-xl space-y-2 shadow-2xl backdrop-blur-md">
-                <label className="text-[10px] font-black uppercase tracking-wider text-[#7bc143] block">Select Desired Course</label>
+              {/* 🛠️ PREMIUM DROPDOWN SELECTION */}
+              <div className="p-4 bg-zinc-900/30 border border-white/5 rounded-xl space-y-2 focus-within:border-[#00f2ff]/50 focus-within:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300">
+                <label className="text-[10px] font-black uppercase tracking-wider text-[#00f2ff] block">Select Desired Course</label>
                 <select
                   required
                   value={formData.course}
                   onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-                  className="w-full bg-transparent border-b border-zinc-700 py-1.5 text-sm text-white font-bold focus:outline-none focus:border-[#7bc143] transition-colors cursor-pointer [&>option]:bg-[#111625] [&>option]:text-white"
+                  className="w-full bg-transparent border-b border-zinc-800 py-1.5 text-sm text-white font-bold focus:outline-none focus:border-[#00f2ff] transition-colors cursor-pointer"
                 >
-                  <option value="">-- SELECT YOUR PATH --</option>
-                  <option value="wordpress-seo">WordPress Custom Architecture & Advanced SEO</option>
-                  <option value="fullstack-dev">Full-Stack Development with Live Projects</option>
-                  <option value="global-freelancing">Global Freelancing Blueprint Masterclass</option>
+                  <option value="" className="bg-[#0b0f19] text-zinc-400">-- SELECT YOUR PATH --</option>
+                  <option value="wordpress-seo" className="bg-[#0b0f19] text-white">WordPress Custom Architecture & Advanced SEO</option>
+                  {/* <option value="fullstack-dev" className="bg-[#0b0f19] text-white">Full-Stack Development with Live Projects</option> */}
+                  {/* <option value="global-freelancing" className="bg-[#0b0f19] text-white">Global Freelancing Blueprint Masterclass</option> */}
                 </select>
               </div>
 
+              {/* ✍️ INPUT GRID SYSTEM */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Full Name</label>
-                  <input
-                    type="text" required
-                    placeholder="Enter your full name"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Full Name</label>
+                  <input type="text" required placeholder="Enter full name" value={formData.fullName} onChange={(e) => setFormData({ ...formData, fullName: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
                 </div>
-
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Father Name</label>
-                  <input
-                    type="text" required
-                    placeholder="Enter father name"
-                    value={formData.fatherName}
-                    onChange={(e) => setFormData({ ...formData, fatherName: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Father Name</label>
+                  <input type="text" required placeholder="Enter father name" value={formData.fatherName} onChange={(e) => setFormData({ ...formData, fatherName: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
                 </div>
-
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Email Address</label>
-                  <input
-                    type="email" required
-                    placeholder="name@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Email Address</label>
+                  <input type="email" required placeholder="name@example.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
                 </div>
-
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Phone Number</label>
-                  <input
-                    type="tel" required
-                    placeholder="03XXXXXXXXX"
-                    value={formData.phoneNumber}
-                    onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Phone Number</label>
+                  <input type="tel" required placeholder="03XXXXXXXXX" value={formData.phoneNumber} onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
                 </div>
-
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">CNIC / B-Form</label>
-                  <input
-                    type="text" required
-                    placeholder="36302-XXXXXXX-X"
-                    value={formData.cnic}
-                    onChange={(e) => setFormData({ ...formData, cnic: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">City</label>
+                  <input type="text" required placeholder="e.g. Multan" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
                 </div>
-
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">City</label>
-                  <input
-                    type="text" required
-                    placeholder="e.g. Multan"
-                    value={formData.city}
-                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Age</label>
+                  <input type="number" required placeholder="Your Age" value={formData.age} onChange={(e) => setFormData({ ...formData, age: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
                 </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Age</label>
-                  <input
-                    type="number" required
-                    placeholder="Your Age"
-                    value={formData.age}
-                    onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Gender</label>
-                  <select
-                    value={formData.gender}
-                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                    className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] transition-all cursor-pointer [&>option]:bg-[#111625]"
-                  >
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                <div className="space-y-1.5 sm:col-span-2">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Gender</label>
+                  <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white font-bold focus:outline-none focus:border-[#00f2ff]/60 transition-all duration-300 cursor-pointer">
+                    <option value="Male" className="bg-[#0b0f19]">Male</option>
+                    <option value="Female" className="bg-[#0b0f19]">Female</option>
                   </select>
                 </div>
-
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Security Password</label>
-                <input
-                  type="password" required
-                  placeholder="Choose a strong password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all"
-                />
+                <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Portal Security Password</label>
+                <input type="password" required placeholder="Choose a strong password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block pl-0.5">Residential Address</label>
-                <textarea
-                  rows={2} required
-                  placeholder="Enter complete current home address"
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm font-semibold text-white placeholder-white/90 focus:outline-none focus:border-[#7bc143]/60 focus:bg-[#151d30] focus:shadow-[0_0_15px_rgba(123,193,67,0.1)] transition-all resize-none"
-                />
+                <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Residential Address</label>
+                <textarea rows={2} required placeholder="Enter home address" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white resize-none focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 focus:shadow-[0_0_15px_rgba(0,242,255,0.03)] transition-all duration-300" />
               </div>
 
-              <label className="flex items-start gap-2.5 select-none group cursor-pointer text-left">
-                <input
-                  type="checkbox"
-                  checked={formData.agree}
-                  onChange={(e) => setFormData({ ...formData, agree: e.target.checked })}
-                  className="mt-1 accent-[#7bc143] h-3.5 w-3.5 cursor-pointer"
-                />
-                <span className="text-[11px] font-bold uppercase tracking-wide text-zinc-400 group-hover:text-zinc-300 transition-colors">
-                  I confirm details are correct and agree to the{" "}
-                  <Link href="/terms" className="text-[#7bc143] underline underline-offset-2 hover:text-[#8cd153]">
-                    Terms & Conditions
-                  </Link>.
-                </span>
+              {/* 🔲 Custom Accent Checkbox */}
+              <label className="flex items-start gap-2.5 select-none cursor-pointer group">
+                <input type="checkbox" checked={formData.agree} onChange={(e) => setFormData({ ...formData, agree: e.target.checked })} className="mt-1 accent-[#00f2ff]" />
+                <span className="text-[11px] font-bold uppercase text-zinc-400 group-hover:text-zinc-300 transition-colors">I confirm details are correct and agree to terms.</span>
               </label>
 
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-zinc-900 to-zinc-800 border border-zinc-800 text-zinc-300 font-black text-xs uppercase tracking-[2px] hover:from-[#7bc143] hover:to-[#6baa3a] hover:text-white hover:border-[#7bc143] hover:shadow-[0_0_25px_rgba(123,193,67,0.25)] transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer"
-                >
-                  Confirm Registration
-                  <ArrowRight size={13} className="stroke-[3]" />
-                </button>
-              </div>
+              {/* 🚀 ELITE NEON BLUE SUBMIT BUTTON */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="group relative overflow-hidden w-full flex items-center justify-center font-black text-xs uppercase tracking-[2px] h-[52px] px-6 rounded-xl bg-white text-black border border-white/10 shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+              >
+                {/* Neon Blue Gradient Slider Layer on Hover */}
+                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[#0070ff] to-[#00f2ff] transition-all duration-500 ease-out group-hover:w-full" />
 
-              <div className="text-center pt-2">
-                <p className="text-[11px] font-bold tracking-wide text-zinc-400 uppercase">
-                  Already a Student?{" "}
-                  <Link href="#login" className="text-[#7bc143] hover:text-[#8cd153] hover:underline font-black transition-colors">
-                    Login Here
-                  </Link>
-                </p>
-              </div>
-
+                {/* Content Container */}
+                <span className="relative z-10 flex items-center gap-1.5 group-hover:text-black transition-colors duration-500 ease-out">
+                  {loading ? (
+                    <>
+                      <Loader2 className="animate-spin" size={14} />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      Confirm & Process Admission
+                      <svg
+                        className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </>
+                  )}
+                </span>
+              </button>
             </form>
           )}
 
         </div>
       </section>
-
     </main>
   );
 }
