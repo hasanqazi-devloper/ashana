@@ -1,26 +1,23 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
 
 :root {
-  /* 🎨 Clean Background: Aapki requirement ke mutabiq pure black theme default kar di hai */
   --background: #030303;
   --foreground: #ffffff;
   --font-montserrat: 'Montserrat', sans-serif;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
-  /* 🎯 Naya Tailwind v4 configuration style */
   --font-sans: var(--font-montserrat);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-montserrat) !important;
-  @apply antialiased overflow-x-hidden;
-  margin: 0; 
-  padding: 0;
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    margin: 0; 
+    padding: 0;
+  }
 }
