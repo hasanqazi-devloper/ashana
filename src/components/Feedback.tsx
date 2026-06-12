@@ -56,14 +56,14 @@ export default function StudentFeedback() {
   ];
 
   return (
-    <section id="feedback" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 border-t border-white/5">
+    <section id="feedback" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5">
 
       {/* 🏷️ HEADER SECTION */}
       <div className="text-center space-y-2 pb-12">
         <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
           What Our Students Say About Us
         </p>
-        <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white font-sans">
+        <h2 className="text-[2.3rem]  md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-none tracking-tighter text-white font-sans">
           Students' {" "}
           <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Feedback</span>
         </h2>

@@ -9,7 +9,7 @@ export default function About() {
   return (
     <>
       {/* 🎯 ABOUT SECTION - Finalized Balanced Padding for All Screens */}
-      <section id="about" className="relative py-14 md:py-20 xl:py-24 bg-[#0b0f19] overflow-hidden flex items-center">
+      <section id="about" className="relative py-16 md:py-24 2xl:py-32 px-6 bg-[#0b0f19] overflow-hidden flex items-center">
 
         {/* Background Ambient Glows */}
         <div className="absolute top-1/4 left-1/4 w-[400px] md:w-[700px] h-[300px] bg-blue-600/[0.03] blur-[150px] pointer-events-none" />
@@ -56,8 +56,8 @@ export default function About() {
                 <span className="text-[10px] md:text-[11px] font-black tracking-[3px] px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 inline-block">
                   Must Watch Before Admission
                 </span>
-                <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[2.8rem] lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-[4.2rem] font-black tracking-tight leading-[1.1] text-white">
-                  What You Will Master: <br />
+                <h2 className="text-[2.3rem]  md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black tracking-tight leading-[1.1] text-white">
+                  What You Will Master : <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
                     No Theory, Just Live Projects
                   </span>

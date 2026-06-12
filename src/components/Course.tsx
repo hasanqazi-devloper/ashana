@@ -30,27 +30,28 @@ export default function CoursesSection() {
   return (
     <section
       id="courses"
-      className="relative w-full bg-[#1E2939] overflow-hidden py-16 md:py-24 border-t border-white/5"
+      className="relative w-full bg-[#1E2939] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5"
     >
       {/* Subtle Blue/Cyan Ambient Radial Glow behind the section */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-blue-600/[0.03] blur-[120px] rounded-full pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl xl:max-w-[85rem] mx-auto px-6 w-full space-y-12">
+{/* 🏷️ HEADER SECTION */}
+<div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 text-center md:text-left border-b border-white/5 pb-6">
+  <div className="space-y-2">
+    <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.2] md:leading-none tracking-tighter text-white font-sans">
+      Master{"  "}
+      <span className="inline-block bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text py-1">
+        Pathway
+      </span>
+    </h2>
+  </div>
 
-        {/* 🏷️ HEADER SECTION */}
-        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 text-center md:text-left border-b border-white/5 pb-6">
-          <div className="space-y-2">
-            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white font-sans">
-              Master {" "}
-              <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Pathway</span>
-            </h2>
-          </div>
-
-          <div className="text-[10px] md:text-xs font-black text-white tracking-[3px] font-block whitespace-nowrap">
-            Build Fast.
-            <span className="text-white"> Rank First. Earn Dollars.</span>
-          </div>
-        </div>
+  <div className="text-[10px] md:text-xs font-black text-white tracking-[3px] font-block uppercase max-sm:leading-relaxed">
+    Build Fast.{" "}
+    <span className="text-zinc-400 max-sm:block max-sm:mt-1">Rank First. Earn Dollars.</span>
+  </div>
+</div>
 
         {/* 🗴 MASTER COURSE PRESENTATION LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-4">

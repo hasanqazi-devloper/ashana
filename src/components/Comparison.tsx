@@ -32,7 +32,7 @@ export default function ComparisonSection() {
   ];
 
   return (
-    <section id="comparison" className="relative w-full bg-[#1E2939] overflow-hidden py-16 md:py-24 border-t border-white/5">
+    <section id="comparison" className="relative w-full bg-[#1E2939] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5">
       {/* Background Ambient Glows */}
       <div className="absolute top-1/4 left-5 w-[400px] h-[400px] bg-blue-600/[0.03] blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 right-5 w-[400px] h-[400px] bg-emerald-600/[0.02] blur-[150px] rounded-full pointer-events-none" />
@@ -41,11 +41,11 @@ export default function ComparisonSection() {
         
         {/* 🏷️ BRAND HEADER BLOCK */}
         <div className="text-center space-y-2 pb-4">
-          <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[3.8rem] font-black leading-none tracking-tighter text-white uppercase font-sans">
-            THE REAL{" "}
-            <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">DIFFERENCE</span>
+          <h2 className="text-[2.3rem]  md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-none tracking-tighter text-white font-sans">
+            The Real{" "}
+            <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Difference</span>
           </h2>
-          <p className="text-white text-xs font-bold uppercase tracking-widest max-w-md mx-auto pt-1">
+          <p className="text-white text-xs font-bold tracking-widest max-w-md mx-auto pt-1">
             See how HRD Institute breaks the traditional loop.
           </p>
           <div className="w-16 h-[3px] bg-blue-600 mx-auto mt-4 rounded-full" />

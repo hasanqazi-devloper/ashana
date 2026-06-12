@@ -11,7 +11,7 @@ export default function CertificatesSection() {
   ];
 
   return (
-    <section className="relative w-full bg-[#1E2939] overflow-hidden py-16 md:py-20 border-t border-white/5">
+    <section className="relative w-full bg-[#1E2939] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5">
       {/* Soft Top Ambient Background Light */}
       <div className="absolute top-0 left-1/3 w-[500px] h-[350px] bg-blue-600/[0.02] blur-[130px] rounded-full pointer-events-none" />
 
@@ -21,7 +21,7 @@ export default function CertificatesSection() {
         <div className="text-center space-y-3 pb-4">
       
           
-          <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[4rem] font-black leading-none tracking-tighter text-white uppercase font-sans">
+          <h2 className="text-[2.3rem]  md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-none tracking-tighter text-white uppercase font-sans">
             STUDENT <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">CERTIFICATES</span>
           </h2>
 

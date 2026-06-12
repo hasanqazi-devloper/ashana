@@ -10,7 +10,7 @@ interface Student {
 
 export default function StudentCarouselSection() {
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
-  
+
   const students: Student[] = [
     { name: "FIZAA", role: "WordPress Engineer", videoId: "q9Xa9RR6mBM" },
     { name: "Fatima", role: "SEO Strategy Lead", videoId: "GAXdDDqVYtc" },
@@ -40,7 +40,7 @@ export default function StudentCarouselSection() {
 
     const scroll = () => {
       if (!slider) return;
-      
+
       slider.scrollLeft += speed;
 
       const maxScroll = slider.scrollWidth / 2;
@@ -88,29 +88,37 @@ export default function StudentCarouselSection() {
 
   return (
     /* 🛠️ CARD CONTAINER WIDTH FIXED: Section ko completely edge-to-edge screen horizontal flex axis par upgrade kiya */
-    <section className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 border-t border-white/5 flex flex-col items-center justify-center">
+    <section className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5 flex flex-col items-center justify-center">
       <div className="absolute top-0 right-[10%] w-[400px] h-[400px] bg-blue-600/[0.02] blur-[150px] rounded-full pointer-events-none" />
 
       {/* 🏷️ HEADER CONTAINER - Restricted to standard padding grid balance */}
       <div className="w-full max-w-7xl mx-auto px-6 mb-12">
         <div className="w-full flex flex-col items-center justify-center text-center gap-6 border-b border-white/5 pb-8 relative">
-          
-          <div className="flex flex-col items-center justify-center text-center space-y-3 w-full">
-            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[4rem] font-black leading-[1.05] tracking-tighter text-white uppercase font-sans text-center block">
-              THE 15,000+{" "}
-              <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text inline-block">
-                POWER
-              </span>
-            </h2>
 
-            <div className="flex items-center justify-center gap-3 pt-1 mx-auto">
-              <div className="w-12 h-[2px] bg-[#FFC71E] rounded-full" />
-              <p className="text-[10px] md:text-xs font-black text-zinc-300 uppercase tracking-[2px] font-mono">
-                SHOWCASING OUR ELITE GRADUATES
-              </p>
-              <div className="w-12 h-[2px] bg-[#FFC71E] rounded-full" />
-            </div>
-          </div>
+        <div className="flex flex-col items-center justify-center text-center space-y-4 w-full max-w-4xl mx-auto px-4">
+  
+  {/* 🎯 Heading: Clean tracking aur mobile safety line-height ke sath */}
+  <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.15] md:leading-[1.05] tracking-tighter text-white font-sans text-center block">
+    Students'{" "}
+    <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text inline-block py-1">
+      Feedback
+    </span>
+  </h2>
+
+  {/* 🛠️ Balanced Divider & Subtext System */}
+  <div className="flex items-center justify-center gap-3 w-full max-w-2xl mx-auto">
+    {/* Left Line - Hidden on super small mobile screens to save space */}
+    <div className="w-8 md:w-12 h-[2px] bg-[#FFC71E] rounded-full shrink-0 hidden sm:block" />
+    
+    <p className="text-[11px] md:text-xs font-semibold text-zinc-400 tracking-[0.5px] md:tracking-[1px] font-sans leading-relaxed max-w-xl">
+      Our learners don’t just complete courses — they achieve real growth, confidence, and career results.
+    </p>
+    
+    {/* Right Line - Hidden on super small mobile screens to save space */}
+    <div className="w-8 md:w-12 h-[2px] bg-[#FFC71E] rounded-full shrink-0 hidden sm:block" />
+  </div>
+
+</div>
 
           {/* Arrow Buttons Positioning layout matrix */}
           <div className="flex items-center gap-2 mt-2 sm:mt-0 lg:absolute lg:right-0 lg:bottom-8">
@@ -139,15 +147,14 @@ export default function StudentCarouselSection() {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-44 bg-gradient-to-l from-[#111827] to-transparent z-20 pointer-events-none" />
 
         {/* Full Screen Track Frame Layer */}
-        <div 
+        <div
           ref={sliderRef}
           onMouseDown={startDragging}
           onMouseLeave={stopDragging}
           onMouseUp={stopDragging}
           onMouseMove={handleDragging}
-          className={`flex overflow-x-auto gap-4 md:gap-5 px-6 md:px-16 w-full scrollbar-none select-none ${
-            isDragging ? "cursor-grabbing" : "cursor-grab"
-          }`}
+          className={`flex overflow-x-auto gap-4 md:gap-5 px-6 md:px-16 w-full scrollbar-none select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
           style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
         >
           {repeatedStudents.map((student, idx) => {
@@ -155,11 +162,11 @@ export default function StudentCarouselSection() {
             const thumbUrl = `https://img.youtube.com/vi/${student.videoId}/0.jpg`;
 
             return (
-              <div 
-                key={`${student.videoId}-${idx}`} 
+              <div
+                key={`${student.videoId}-${idx}`}
                 className="w-[260px] sm:w-[280px] md:w-[300px] shrink-0"
               >
-                <button 
+                <button
                   type="button"
                   onClick={() => setPlayingIndex(idx)}
                   className="group relative aspect-square w-full text-left rounded-xl overflow-hidden border border-white/10 bg-black shadow-xl hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-end cursor-pointer p-0"
@@ -169,16 +176,16 @@ export default function StudentCarouselSection() {
                       <iframe
                         src={`https://www.youtube.com/embed/${student.videoId}?autoplay=1&rel=0&modestbranding=1&controls=1`}
                         title={student.name}
-                        className="w-full h-full object-contain" 
+                        className="w-full h-full object-contain"
                         allow="autoplay; encrypted-media; picture-in-picture"
                         allowFullScreen
                       ></iframe>
                     </div>
                   ) : (
                     <>
-                      <img 
-                        src={thumbUrl} 
-                        alt={student.name} 
+                      <img
+                        src={thumbUrl}
+                        alt={student.name}
                         className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500 z-0"
                         loading="lazy"
                         draggable="false"

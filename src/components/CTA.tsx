@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section id="contact" className="relative w-full bg-[#111827] overflow-hidden py-20 md:py-28 border-t border-white/5">
+    <section id="contact" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5">
       {/* Premium Ambient Background Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] bg-blue-600/[0.04] blur-[120px] rounded-full pointer-events-none z-0" />
 
@@ -20,7 +20,7 @@ export default function CTASection() {
           <div className="space-y-4 w-full lg:max-w-3xl xl:max-w-4xl text-center lg:text-left flex flex-col items-center lg:items-start">
 
             {/* Core Flagship Headline precisely mimicking screenshot styling */}
-            <h2 className="text-[2.2rem] sm:text-[3.2rem] md:text-[4rem] xl:text-[4.5rem] font-black leading-[1.02] tracking-tighter text-white uppercase italic font-sans">
+            <h2 className="text-[2.3rem]  md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.02] tracking-tighter text-white uppercase italic font-sans">
               STOP SCROLLING. <br />
               <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">
                 START EARNING.
@@ -30,7 +30,7 @@ export default function CTASection() {
             {/* Left Accent Stroke Bar Layer with Subtext description */}
             <div className="flex items-stretch gap-4 pt-2 text-left max-w-2xl lg:max-w-none">
               <div className="w-[4px] bg-[#FFC71E] rounded-full flex-shrink-0" />
-              <p className="text-white text-xs md:text-sm xl:text-base font-bold uppercase tracking-wider leading-relaxed text-zinc-100">
+              <p className="text-white text-xs md:text-sm xl:text-base font-bold  tracking-wider leading-relaxed text-zinc-100">
                 Join Pakistan's most practical skill-building academy.
                 <br className="hidden sm:inline" />{" "}
                 <span className="text-white">Zero theory. 100% practical live optimization</span> and real-world project ranking.
