@@ -6,7 +6,7 @@ import React from "react";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-fit lg:min-h-[85vh] 2xl:min-h-[80vh] bg-[#030303] overflow-hidden flex items-center selection:bg-blue-600 pb-16 pt-36 md:pt-40 lg:pt-32 lg:pb-16">
+    <section className="relative min-h-fit lg:min-h-[85vh] 2xl:min-h-[80vh] bg-[#030303] overflow-hidden flex items-center selection:bg-blue-600 pb-16 pt-36 md:pt-40 lg:pt-40 lg:pb-30">
 
       {/* 🌌 AMBIENT BACKGROUND GLOWS */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -17,10 +17,11 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 max-w-7xl 2xl:max-w-[120rem] mx-auto w-full px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-16 items-center">
+        {/* 🛠️ Balanced Grid: lg:gap-16 aur xl:gap-24 se badi screens par gap perfect ho gaya */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center lg:items-stretch">
 
           {/* 📝 LEFT CONTENT */}
-          <div className="lg:col-span-6 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <div className="lg:col-span-6 space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start justify-center">
             {/* 🎯 Premium Animated Heading - Perfect on Desktop & Fully Fixed for Mobile */}
             <h1 className="text-[2rem] sm:text-[3.2rem] md:text-[3rem] lg:text-[3rem] xl:text-[3rem] 2xl:text-[4.8rem] 3xl:text-[5.5rem] font-black leading-[1.2] lg:leading-[1.15] xl:leading-[1.1] tracking-tighter text-white flex flex-col gap-1 lg:gap-2 w-full">
               <span className="block max-sm:whitespace-normal whitespace-nowrap lg:min-w-max">
@@ -133,12 +134,13 @@ export default function HeroSection() {
           </div>
 
           {/* 📸 RIGHT CONTENT: SCALED PREMIUM STATIC VISUAL LAYER */}
-          <div className="lg:col-span-6 relative w-full flex items-center justify-center lg:justify-end mt-10 lg:mt-0">
+          <div className="lg:col-span-6 relative w-full flex items-center justify-center lg:justify-end mt-10 lg:mt-0 lg:h-auto">
             {/* 🔵 Subtle Ambient Glow Behind Image Frame */}
             <div className="absolute w-[80%] h-[80%] bg-blue-600/[0.08] rounded-full blur-[120px] pointer-events-none z-0 right-0 top-1/2 -translate-y-1/2" />
 
-            {/* 🖼️ Premium Border Mockup Container (Up-scaled Max Widths) */}
-            <div className="relative z-10 w-full max-w-[420px] sm:max-w-[520px] lg:max-w-[550px] xl:max-w-[620px] 2xl:max-w-[700px] p-2 rounded-2xl bg-zinc-900/40 border border-white/10 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-500 hover:border-blue-500/30 hover:shadow-[0_25px_60px_rgba(59,130,246,0.1)] group">
+            {/* 🖼️ Premium Border Mockup Container - Clean & Highly Balanced Everywhere */}
+            {/* max-w-full ke sath sm:max-w-[550px] aur lg:max-w-none lagaya hai taake choti screen pr image bohot bari ya narrow na ho */}
+            <div className="relative z-10 w-full max-w-full sm:max-w-[550px] lg:max-w-none p-2 rounded-2xl bg-zinc-900/40 border border-white/10 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-500 hover:border-blue-500/30 hover:shadow-[0_25px_60px_rgba(59,130,246,0.1)] group flex lg:h-full">
 
               {/* Inner Subtle Light Stroke */}
               <div className="absolute inset-0 border border-white/[0.05] rounded-xl pointer-events-none z-20" />
@@ -146,10 +148,10 @@ export default function HeroSection() {
               <Image
                 src="/about.jpg"
                 alt="HRD Institute Tech Education Ecosystem Mockup"
-                width={800}
-                height={520}
+                width={1400} 
+                height={1000}
                 priority
-                className="w-full h-auto object-cover rounded-xl select-none pointer-events-none shadow-inner opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+                className="w-full h-full object-cover rounded-xl select-none pointer-events-none shadow-inner opacity-95 group-hover:opacity-100 transition-all duration-500 group-hover:scale-[1.01]"
               />
             </div>
           </div>

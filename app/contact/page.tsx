@@ -190,25 +190,72 @@ export default function StudentEnrollmentForm() {
         <div className="w-full max-w-2xl mx-auto relative z-10">
 
           {submitted ? (
-            <div className="border border-white/10 bg-[#0d1527] shadow-[0_20px_50px_rgba(0,242,255,0.05)] rounded-2xl p-8 md:p-12 text-center space-y-6 animate-in fade-in zoom-in-95 duration-300">
-              <div className="w-16 h-16 rounded-full bg-[#00f2ff]/10 text-[#00f2ff] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(0,242,255,0.2)] border border-[#00f2ff]/30">
-                <CheckCircle2 size={32} className="stroke-[2.5]" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Form Registered Successfully!</h3>
-                <p className="text-sm text-zinc-400 max-w-sm mx-auto leading-relaxed">
-                  Aapka form portal ledger mein save ho chuka hai. Ab neeche diye gaye button par click karke admin ko WhatsApp par <strong className="text-[#00f2ff] font-bold">Fee Deposit Screenshot</strong> send karein taake aapka batch unlock kiya ja sake.
-                </p>
-              </div>
+            // 🌟 PREMIUM VERTICAL COLUMN CARDS LAYOUT
+            <div className="w-full flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-500">
               
-              <button
-                type="button"
-                onClick={sendWhatsAppReceipt}
-                className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-black text-sm uppercase tracking-[1.5px] shadow-[0_10px_30px_rgba(37,211,102,0.2)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer"
-              >
-                <MessageCircle size={18} fill="white" />
-                Send Fee Screenshot via WhatsApp
-              </button>
+              {/* CARD 1: FORM STATUS / SUCCESS BADGE */}
+              <div className="border border-white/10 bg-[#0d1527] shadow-[0_20px_50px_rgba(0,242,255,0.05)] rounded-2xl p-8 md:p-12 text-center space-y-6 relative overflow-hidden group">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 to-blue-500" />
+                <div className="w-16 h-16 rounded-full bg-[#00f2ff]/10 text-[#00f2ff] flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(0,242,255,0.2)] border border-[#00f2ff]/30 group-hover:scale-105 transition-transform duration-300">
+                  <CheckCircle2 size={32} className="stroke-[2.5]" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tight">Form Registered Successfully!</h3>
+                  <p className="text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+                    Aapka data secure portal ledger mein successfully register aur save ho chuka hai. Kindly step by step details lock karein.
+                  </p>
+                </div>
+              </div>
+
+              {/* CARD 2: OFFICIAL PAYMENT ACCOUNTS (Sir Abdul Basit Details) */}
+              <div className="border border-white/10 bg-[#0b0f19]/90 backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] rounded-2xl p-8 flex flex-col space-y-4 relative overflow-hidden text-left">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500" />
+                
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 block mb-1">Official Fee Accounts</span>
+                  <h3 className="text-xl font-black text-white uppercase tracking-wide italic">Payment Details</h3>
+                  
+                  {/* Account Rows Stretched Cleanly */}
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Bank Card Info */}
+                    <div className="p-4 rounded-xl bg-zinc-900/60 border border-white/5 space-y-1">
+                      <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Bank Account (Meezan/HBL)</p>
+                      <p className="text-sm font-black text-white tracking-wide">Abdul Basit</p>
+                      <p className="text-sm font-mono font-bold text-cyan-400 tracking-wider">03451234567 <span className="text-[10px] text-zinc-500 font-sans">(Dummy No)</span></p>
+                    </div>
+
+                    {/* JazzCash Info */}
+                    <div className="p-4 rounded-xl bg-zinc-900/60 border border-white/5 space-y-1">
+                      <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">JazzCash Wallet</p>
+                      <p className="text-sm font-black text-white tracking-wide">Abdul Basit</p>
+                      <p className="text-sm font-mono font-bold text-amber-500 tracking-wider">03001234567</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD 3: WHATSAPP ACTION CALL SUBMISSION */}
+              <div className="border border-white/10 bg-[#0d1527]/80 backdrop-blur-md shadow-[0_15px_40px_rgba(37,211,102,0.03)] rounded-2xl p-8 text-center flex flex-col justify-center items-center space-y-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500 to-green-400" />
+                
+                <div className="space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#25D366] block">Final Step Activation</span>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight">Unlock Your Batch</h3>
+                  <p className="text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+                    Aapka form portal ledger mein save ho chuka hai. Ab neeche diye gaye button par click karke admin ko WhatsApp par <strong className="text-[#00f2ff] font-bold">Fee Deposit Screenshot</strong> send karein taake aapka batch unlock kiya ja sake.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={sendWhatsAppReceipt}
+                  className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-black text-sm uppercase tracking-[1.5px] shadow-[0_10px_30px_rgba(37,211,102,0.2)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer active:scale-[0.99]"
+                >
+                  <MessageCircle size={18} fill="white" />
+                  Send Fee Screenshot via WhatsApp
+                </button>
+              </div>
+
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -227,8 +274,8 @@ export default function StudentEnrollmentForm() {
                 >
                   <option value="" className="bg-[#0b0f19] text-zinc-400">-- SELECT YOUR PATH --</option>
                   <option value="wordpress-seo" className="bg-[#0b0f19] text-white">WordPress Custom Architecture & Advanced SEO</option>
-                  <option value="fullstack-dev" className="bg-[#0b0f19] text-white">Full-Stack Development with Live Projects</option>
-                  <option value="global-freelancing" className="bg-[#0b0f19] text-white">Global Freelancing Blueprint Masterclass</option>
+                  {/* <option value="fullstack-dev" className="bg-[#0b0f19] text-white">Full-Stack Development with Live Projects</option> */}
+                  {/* <option value="global-freelancing" className="bg-[#0b0f19] text-white">Global Freelancing Blueprint Masterclass</option> */}
                 </select>
               </div>
 

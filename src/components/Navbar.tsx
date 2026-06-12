@@ -145,7 +145,7 @@ export default function Navbar() {
   const links = [
     // { name: "Home", href: "/#home" },
     { name: "About Us", href: "/#about" },
-    { name: "Courses", href: "/#courses" },
+    { name: "Training", href: "/#courses" },
     { name: "Feedback", href: "/#feedback" },
     ...dynamicLinks,
     // { name: "Contact Us", href: "/contact" },

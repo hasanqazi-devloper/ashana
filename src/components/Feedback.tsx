@@ -56,99 +56,99 @@ export default function StudentFeedback() {
   ];
 
   return (
-    <section id="feedback" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 2xl:py-32 px-6 border-t border-white/5">
+  <section id="feedback" className="relative w-full bg-[#111827] overflow-hidden py-16 md:py-24 2xl:py-32 px-4 sm:px-6 border-t border-white/5">
 
-      {/* 🏷️ HEADER SECTION */}
-      <div className="text-center space-y-2 pb-12">
-        <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
-          What Our Students Say About Us
-        </p>
-        <h2 className="text-[2.3rem]  md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-none tracking-tighter text-white font-sans">
-          Students' {" "}
-          <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">Feedback</span>
-        </h2>
-        <div className="w-16 h-[3px] bg-[#FFC71E] mx-auto mt-3 rounded-full" />
-      </div>
+  {/* 🏷️ HEADER SECTION */}
+  <div className="text-center space-y-2 pb-12">
+    <p className="text-[10px] md:text-xs font-black text-[#10B981] uppercase tracking-[3px] font-mono">
+      What Our Students Say About Us
+    </p>
+    <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.2] md:leading-none tracking-tighter text-white font-sans">
+      Students' {" "}
+      <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text py-1 inline-block">Feedback</span>
+    </h2>
+    <div className="w-16 h-[3px] bg-[#FFC71E] mx-auto mt-3 rounded-full" />
+  </div>
 
-      {/* 🔄 INFINITE ROW SCROLLER CONTAINER */}
-      <div className="relative w-full flex items-center overflow-x-hidden group py-4">
-        {/* Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#111827] to-transparent z-20 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#111827] to-transparent z-20 pointer-events-none" />
+  {/* 🔄 INFINITE ROW SCROLLER CONTAINER */}
+  <div className="relative w-full overflow-hidden group py-4">
+    {/* Overlays */}
+    <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-[#111827] to-transparent z-20 pointer-events-none" />
+    <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-[#111827] to-transparent z-20 pointer-events-none" />
 
-        {/* Dynamic Infinite Track Loop */}
-        <div className="flex gap-4 animate-marquee whitespace-nowrap min-w-full will-change-transform group-hover:[animation-play-state:paused]">
-          {[...feedbacks, ...feedbacks].map((card, idx) => (
-            <div
-              key={idx}
-              className="inline-block w-[300px] sm:w-[360px] bg-[#0c0c0e] border border-white/5 rounded-xl p-4 shadow-2xl whitespace-normal select-none flex-shrink-0"
-            >
-              {/* Card Meta Header Layer */}
-              <div className="flex items-start justify-between gap-3 w-full">
-                <div className="flex items-center gap-2.5">
-                  <img
-                    src={card.avatar}
-                    alt={card.name}
-                    className="w-9 h-9 rounded-full object-cover border border-white/10"
-                  />
-                  <div className="leading-tight">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <h4 className="text-[12px] font-bold text-zinc-200 tracking-tight">
-                        {card.name}
-                      </h4>
-                      {/* 📍 Added Location Badge with exact adjustments */}
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-zinc-800 text-[9px] text-[#10B981] font-bold tracking-tight">
-                        <MapPin size={8} className="stroke-[2.5]" />
-                        {card.location}
-                      </span>
-                    </div>
-                    <p className="text-[9px] text-zinc-500 font-medium mt-0.5">{card.date}</p>
-                  </div>
+    {/* Dynamic Infinite Track Loop */}
+    <div className="flex gap-4 animate-marquee whitespace-nowrap min-w-full will-change-transform group-hover:[animation-play-state:paused]">
+      {[...feedbacks, ...feedbacks].map((card, idx) => (
+        <div
+          key={idx}
+          className="inline-block w-[250px] sm:w-[360px] bg-[#0c0c0e] border border-white/5 rounded-xl p-4 shadow-none sm:shadow-[0_10px_30px_rgba(0,0,0,0.5)] whitespace-normal select-none flex-shrink-0 transition-all duration-300"
+        >
+          {/* Card Meta Header Layer */}
+          <div className="flex items-start justify-between gap-3 w-full">
+            <div className="flex items-center gap-2.5">
+              <img
+                src={card.avatar}
+                alt={card.name}
+                className="w-9 h-9 rounded-full object-cover border border-white/10"
+              />
+              <div className="leading-tight">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <h4 className="text-[12px] font-bold text-zinc-200 tracking-tight">
+                    {card.name}
+                  </h4>
+                  {/* 📍 Location Badge */}
+                  <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-zinc-800 text-[9px] text-[#10B981] font-bold tracking-tight">
+                    <MapPin size={8} className="stroke-[2.5]" />
+                    {card.location}
+                  </span>
                 </div>
-                <MoreHorizontal size={14} className="text-zinc-600 cursor-pointer hover:text-zinc-400" />
+                <p className="text-[9px] text-zinc-500 font-medium mt-0.5">{card.date}</p>
               </div>
-
-              {/* Stars Badge Block */}
-              <div className="flex items-center gap-0.5 pt-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={10} className="fill-[#FFC71E] text-[#FFC71E]" />
-                ))}
-              </div>
-
-              {/* Feed Text content */}
-              <p className="text-zinc-400 text-xs font-normal leading-relaxed pt-2.5 border-b border-white/[0.03] pb-3 min-h-[90px]">
-                "{card.text}"
-              </p>
-
-              {/* Interactive Toolbar Footer Layers */}
-              <div className="flex items-center justify-between text-zinc-600 text-[10px] font-bold pt-2.5 px-0.5">
-                <button className="flex items-center gap-1.5 hover:text-blue-500 transition-colors">
-                  <ThumbsUp size={12} /> Like
-                </button>
-                <button className="flex items-center gap-1.5 hover:text-emerald-500 transition-colors">
-                  <MessageSquare size={12} /> Comment
-                </button>
-                <button className="flex items-center gap-1.5 hover:text-purple-500 transition-colors">
-                  <Share2 size={12} /> Share
-                </button>
-              </div>
-
             </div>
-          ))}
+            <MoreHorizontal size={14} className="text-zinc-600 cursor-pointer hover:text-zinc-400" />
+          </div>
+
+          {/* Stars Badge Block */}
+          <div className="flex items-center gap-0.5 pt-2">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={10} className="fill-[#FFC71E] text-[#FFC71E]" />
+            ))}
+          </div>
+
+          {/* Feed Text content */}
+          <p className="text-zinc-400 text-xs font-normal leading-relaxed pt-2.5 border-b border-white/[0.03] pb-3 min-h-[110px] sm:min-h-[90px]">
+            "{card.text}"
+          </p>
+
+          {/* Interactive Toolbar Footer Layers */}
+          <div className="flex items-center justify-between text-zinc-600 text-[10px] font-bold pt-2.5 px-0.5">
+            <button className="flex items-center gap-1.5 hover:text-blue-500 transition-colors">
+              <ThumbsUp size={12} /> Like
+            </button>
+            <button className="flex items-center gap-1.5 hover:text-emerald-500 transition-colors">
+              <MessageSquare size={12} /> Comment
+            </button>
+            <button className="flex items-center gap-1.5 hover:text-purple-500 transition-colors">
+              <Share2 size={12} /> Share
+            </button>
+          </div>
+
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
 
-      {/* Global CSS Styles */}
-      <style jsx global>{`
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+  {/* Global CSS Styles */}
+  <style jsx global>{`
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+  `}</style>
 
-    </section>
+</section>
   );
 }

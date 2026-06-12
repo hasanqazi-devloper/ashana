@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { 
-  CheckCircle, 
-  Globe, 
-  Search, 
-  ArrowRight, 
+import {
+  CheckCircle,
+  Globe,
+  Search,
+  ArrowRight,
   Sparkles,
   ChevronDown,
   X,
@@ -36,22 +36,22 @@ export default function CoursesSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-blue-600/[0.03] blur-[120px] rounded-full pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl xl:max-w-[85rem] mx-auto px-6 w-full space-y-12">
-{/* 🏷️ HEADER SECTION */}
-<div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 text-center md:text-left border-b border-white/5 pb-6">
-  <div className="space-y-2">
-    <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.2] md:leading-none tracking-tighter text-white font-sans">
-      Master{"  "}
-      <span className="inline-block bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text py-1">
-        Pathway
-      </span>
-    </h2>
-  </div>
+        {/* 🏷️ HEADER SECTION */}
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-4 text-center md:text-left border-b border-white/5 pb-6">
+          <div className="space-y-2">
+            <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.2] md:leading-none tracking-tighter text-white font-sans">
+              Master{"  "}
+              <span className="inline-block bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text py-1">
+                Pathway
+              </span>
+            </h2>
+          </div>
 
-  <div className="text-[10px] md:text-xs font-black text-white tracking-[3px] font-block uppercase max-sm:leading-relaxed">
-    Build Fast.{" "}
-    <span className="text-zinc-400 max-sm:block max-sm:mt-1">Rank First. Earn Dollars.</span>
-  </div>
-</div>
+          <div className="text-[10px] md:text-xs font-black text-white tracking-[3px] font-block uppercase max-sm:leading-relaxed">
+            Build Fast.{" "}
+            <span className="text-zinc-400 max-sm:block max-sm:mt-1">Rank First. Earn Dollars.</span>
+          </div>
+        </div>
 
         {/* 🗴 MASTER COURSE PRESENTATION LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-4">
@@ -66,7 +66,7 @@ export default function CoursesSection() {
                 Master the Dual Power of Web Dev & SEO
               </h3>
               <p className="text-white text-sm font-medium leading-relaxed">
-                Learn to build fast WordPress websites and rank them on Google. Master both skills to land high-paying international clients              
+                Learn to build fast WordPress websites and rank them on Google. Master both skills to land high-paying international clients
               </p>
             </div>
 
@@ -80,10 +80,10 @@ export default function CoursesSection() {
                 <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs flex items-center gap-1.5 border border-white/5">
                   <Search size={12} className="text-emerald-400" /> Search Engine Optimization
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> 
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5">
                   Content Writing
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5"> 
+                <span className="px-3 py-1.5 rounded-lg bg-white/5 text-zinc-300 font-bold text-xs border border-white/5">
                   Guest Posting
                 </span>
               </div>
@@ -174,7 +174,7 @@ export default function CoursesSection() {
                 <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest leading-none">Investment</p>
                 <div className="pt-2 leading-none">
                   <span className="text-[22px] font-black text-[#FFC71E] tracking-tight">Rs 9,999</span>
-                  <span className="text-[11px] text-zinc-500 line-through block font-bold mt-1">Rs 35,000</span>
+                  <span className="text-[11px] text-zinc-500 line-through block font-bold mt-1">Rs 19,999</span>
                 </div>
               </div>
 
@@ -198,42 +198,43 @@ export default function CoursesSection() {
 
       {/* 🚀 ROADMAP ACCORDION MODAL POPUP */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="relative w-full max-w-xl bg-[#0b0f19] border border-white/10 rounded-2xl shadow-2xl p-6 overflow-hidden flex flex-col max-h-[85vh]">
-            
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+          {/* 🛠️ 2xl aur 3xl par full large bounds up-scale kar diye hain */}
+          <div className="relative w-full max-w-xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-6xl 3xl:max-w-6xl bg-[#0b0f19] border border-white/10 rounded-2xl shadow-2xl p-6 md:p-8 lg:p-10 overflow-hidden flex flex-col max-h-[85vh] transition-all duration-300">
+
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-5 mb-5">
               <div className="text-left">
-                <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 block">Ecosystem Roadmap</span>
-                <h3 className="text-lg font-black text-white uppercase italic tracking-wide">SEO Mastery Course Modules</h3>
+                <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-blue-400 block mb-1">Ecosystem Roadmap</span>
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-black text-white uppercase italic tracking-wide">SEO Mastery Course Modules</h3>
               </div>
-              <button 
+              <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 rounded-lg bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
+                className="p-2 rounded-lg bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Content - FAQ Accordions */}
-            <div className="flex-1 overflow-y-auto space-y-3 pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+            <div className="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-zinc-800 text-left">
               {roadmapModules.map((module, index) => {
                 const isOpen = activeModule === index;
                 return (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="border border-white/5 rounded-xl bg-[#0d1220]/60 overflow-hidden transition-all duration-300"
                   >
                     <button
                       onClick={() => setActiveModule(isOpen ? null : index)}
-                      className="w-full flex items-center justify-between p-4 text-left font-black text-xs sm:text-sm text-zinc-200 hover:text-blue-400 hover:bg-white/[0.01] transition-all cursor-pointer select-none"
+                      className="w-full flex items-center justify-between p-4 md:p-5 text-left font-black text-xs sm:text-sm md:text-base text-zinc-200 hover:text-blue-400 hover:bg-white/[0.01] transition-all cursor-pointer select-none"
                     >
                       <span className={`${isOpen ? 'text-blue-400' : ''}`}>{module.title}</span>
-                      <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-300 shrink-0 ml-2 ${isOpen ? 'rotate-180 text-blue-400' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 text-zinc-500 transition-transform duration-300 shrink-0 ml-4 ${isOpen ? 'rotate-180 text-blue-400' : ''}`} />
                     </button>
 
-                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-40 border-t border-white/5' : 'max-h-0'}`}>
-                      <p className="p-4 text-xs font-medium text-zinc-400 leading-relaxed bg-black/20 text-left">
+                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-[600px] border-t border-white/5' : 'max-h-0'}`}>
+                      <p className="p-4 md:p-5 text-xs sm:text-sm font-medium text-zinc-400 leading-relaxed bg-black/20 text-left">
                         {module.details}
                       </p>
                     </div>
@@ -243,10 +244,10 @@ export default function CoursesSection() {
             </div>
 
             {/* Modal Footer Cross Button */}
-            <div className="border-t border-white/10 pt-4 mt-4">
+            <div className="border-t border-white/10 pt-4 mt-5">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="w-full py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white hover:bg-zinc-800 hover:border-zinc-700 font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer"
+                className="w-full py-3 rounded-xl bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white hover:bg-zinc-800 hover:border-zinc-700 font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer"
               >
                 Close Roadmap
               </button>

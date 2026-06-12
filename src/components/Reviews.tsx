@@ -12,13 +12,13 @@ export default function StudentCarouselSection() {
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
   const students: Student[] = [
-    { name: "FIZAA", role: "WordPress Engineer", videoId: "q9Xa9RR6mBM" },
-    { name: "Fatima", role: "SEO Strategy Lead", videoId: "GAXdDDqVYtc" },
-    { name: "HAYAT", role: "Fullstack Web Dev", videoId: "YtxNZG8aS2E" },
-    { name: "Ali", role: "Custom Theme Specialist", videoId: "3Gg3rAfRgLA" },
+    { name: "Maryam", role: "WordPress Engineer", videoId: "q9Xa9RR6mBM" },
+    { name: "Adeeba", role: "SEO Strategy Lead", videoId: "GAXdDDqVYtc" },
+    { name: "Waheed", role: "Fullstack Web Dev", videoId: "YtxNZG8aS2E" },
+    { name: "Mohsin", role: "Custom Theme Specialist", videoId: "3Gg3rAfRgLA" },
     { name: "M HARIS", role: "Technical SEO Expert", videoId: "buTpBRJkab0" },
-    { name: "Hamza", role: "UI/UX Specialist", videoId: "flnf09DQyeo" },
-    { name: "USMAN", role: "Digital Marketer", videoId: "lZbdNfodmhQ" }
+    { name: "Abdul Manan", role: "UI/UX Specialist", videoId: "flnf09DQyeo" },
+    { name: "Salman", role: "Digital Marketer", videoId: "lZbdNfodmhQ" }
   ];
 
   const repeatedStudents = [...students, ...students];
@@ -95,30 +95,30 @@ export default function StudentCarouselSection() {
       <div className="w-full max-w-7xl mx-auto px-6 mb-12">
         <div className="w-full flex flex-col items-center justify-center text-center gap-6 border-b border-white/5 pb-8 relative">
 
-        <div className="flex flex-col items-center justify-center text-center space-y-4 w-full max-w-4xl mx-auto px-4">
-  
-  {/* 🎯 Heading: Clean tracking aur mobile safety line-height ke sath */}
-  <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.15] md:leading-[1.05] tracking-tighter text-white font-sans text-center block">
-    Students'{" "}
-    <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text inline-block py-1">
-      Feedback
-    </span>
-  </h2>
+          <div className="flex flex-col items-center justify-center text-center space-y-4 w-full max-w-4xl mx-auto px-4">
 
-  {/* 🛠️ Balanced Divider & Subtext System */}
-  <div className="flex items-center justify-center gap-3 w-full max-w-2xl mx-auto">
-    {/* Left Line - Hidden on super small mobile screens to save space */}
-    <div className="w-8 md:w-12 h-[2px] bg-[#FFC71E] rounded-full shrink-0 hidden sm:block" />
-    
-    <p className="text-[11px] md:text-xs font-semibold text-zinc-400 tracking-[0.5px] md:tracking-[1px] font-sans leading-relaxed max-w-xl">
-      Our learners don’t just complete courses — they achieve real growth, confidence, and career results.
-    </p>
-    
-    {/* Right Line - Hidden on super small mobile screens to save space */}
-    <div className="w-8 md:w-12 h-[2px] bg-[#FFC71E] rounded-full shrink-0 hidden sm:block" />
-  </div>
+            {/* 🎯 Heading: Clean tracking aur mobile safety line-height ke sath */}
+            <h2 className="text-[2.3rem] md:text-[2.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-black leading-[1.15] md:leading-[1.05] tracking-tighter text-white font-sans text-center block">
+              Students'{" "}
+              <span className="bg-gradient-to-r from-[#00f2ff] via-[#0070ff] to-[#00f2ff] bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text inline-block py-1">
+                Feedback
+              </span>
+            </h2>
 
-</div>
+            {/* 🛠️ Balanced Divider & Subtext System */}
+            <div className="flex items-center justify-center gap-3 w-full max-w-2xl mx-auto">
+              {/* Left Line - Hidden on super small mobile screens to save space */}
+              <div className="w-8 md:w-12 h-[2px] bg-[#FFC71E] rounded-full shrink-0 hidden sm:block" />
+
+              <p className="text-[11px] md:text-xs font-semibold text-zinc-400 tracking-[0.5px] md:tracking-[1px] font-sans leading-relaxed max-w-xl">
+                Our learners don’t just complete courses — they achieve real growth, confidence, and career results.
+              </p>
+
+              {/* Right Line - Hidden on super small mobile screens to save space */}
+              <div className="w-8 md:w-12 h-[2px] bg-[#FFC71E] rounded-full shrink-0 hidden sm:block" />
+            </div>
+
+          </div>
 
           {/* Arrow Buttons Positioning layout matrix */}
           <div className="flex items-center gap-2 mt-2 sm:mt-0 lg:absolute lg:right-0 lg:bottom-8">
@@ -203,9 +203,9 @@ export default function StudentCarouselSection() {
                         <div className="inline-block bg-white text-black font-black font-sans text-[10px] tracking-wide px-2 py-0.5 uppercase shadow-md">
                           {student.name}
                         </div>
-                        <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider pl-0.5">
+                        {/* <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider pl-0.5">
                           {student.role}
-                        </p>
+                        </p> */}
                       </div>
 
                       <div className="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur-md border border-white/10 p-1.5 rounded-lg text-white/60 group-hover:text-blue-400 transition-colors">

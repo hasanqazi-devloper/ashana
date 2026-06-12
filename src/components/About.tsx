@@ -40,7 +40,7 @@ export default function About() {
                     alt="HRD Institute - Practical Training"
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    sizes="(max-w-7xl) 50vw, 45vw"
+                    sizes="(max-w-7xl) 40vw, 40vw"
                     priority
                   />
                   {/* Subtle Dark Overlay Tint */}
@@ -75,48 +75,51 @@ export default function About() {
                 Skip boring lectures. You will actively audit real websites, conduct advanced keyword research, build topical authority, and rank pages on Google—building a live portfolio to win high-paying international clients.
               </motion.p>
 
-              {/* 🎴 VERTICAL CARDS CONTAINER */}
-              <div className="space-y-3 max-w-xl">
-                {[
-                  {
-                    title: "Guaranteed Internship",
-                    desc: "Top Students get hired in our own Digital Agency.",
-                  },
-                  {
-                    title: "Lifetime Mentorship",
-                    desc: "Free lifetime support from expert mentors.",
-                  },
-                  {
-                    title: "Online Community",
-                    desc: "Connect, network, and grow together.",
-                  }
-                ].map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className="group flex items-center gap-4 p-3.5 rounded-xl bg-[#0d1321]/40 border border-white/10 hover:border-blue-500/50 hover:bg-[#111827]/60 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden text-left"
-                  >
-                    {/* Inner Ambient Glow */}
-                    <div className="absolute -inset-px bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          {/* 🎴 VERTICAL CARDS CONTAINER */}
+<div className="space-y-4 w-full max-w-xl">
+  {[
+    {
+      title: "Guaranteed Internship",
+      desc: "Top Students get hired in our own Digital Agency.",
+    },
+    {
+      title: "Lifetime Mentorship",
+      desc: "Free lifetime support from expert mentors.",
+    },
+    {
+      title: "Online Community",
+      desc: "Connect, network, and grow together.",
+    }
+  ].map((feat, idx) => (
+    <div
+      key={idx}
+      className="group flex items-start sm:items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#0d1321]/60 to-[#070a12]/40 border border-white/5 hover:border-blue-500/30 hover:bg-[#111827]/40 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_10px_30px_rgba(59,130,246,0.08)] transition-all duration-300 relative overflow-hidden text-left"
+    >
+      {/* ⚡ Left Edge Glow Line Indicator */}
+      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-blue-500 to-cyan-400 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center rounded-r" />
 
-                    {/* Checkmark Circular Status Badge */}
-                    <div className="w-6.5 h-6.5 rounded-full border border-blue-500/30 bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white group-hover:scale-105 transition-all duration-300 shrink-0">
-                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
+      {/* Inner Ambient Glow Layer */}
+      <div className="absolute -inset-px bg-gradient-to-r from-blue-500/[0.03] via-cyan-500/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-                    {/* Feature Information Text */}
-                    <div className="flex flex-col gap-0.5">
-                      <h4 className="text-xs md:text-sm font-black text-white uppercase tracking-wider group-hover:text-blue-400 transition-colors duration-200">
-                        {feat.title}
-                      </h4>
-                      <p className="text-[11px] md:text-xs text-zinc-400 font-medium group-hover:text-zinc-300 transition-colors duration-200">
-                        {feat.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* Checkmark Circular Status Badge */}
+      <div className="w-7 h-7 rounded-lg border border-blue-500/20 bg-blue-500/5 flex items-center justify-center text-blue-400 group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-500 group-hover:text-black group-hover:border-transparent group-hover:scale-105 transition-all duration-300 shrink-0 shadow-inner mt-0.5 sm:mt-0">
+        <svg className="w-3.5 h-3.5 stroke-[3.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+
+      {/* Feature Information Text */}
+      <div className="flex flex-col gap-1 min-w-0">
+        <h4 className="text-xs sm:text-sm font-black text-zinc-100 uppercase tracking-wider group-hover:text-blue-400 transition-colors duration-200">
+          {feat.title}
+        </h4>
+        <p className="text-[11px] sm:text-xs text-zinc-400 font-medium leading-relaxed group-hover:text-zinc-300 transition-colors duration-200">
+          {feat.desc}
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
 
             </div>
           </div>
