@@ -1,31 +1,19 @@
-import Navbar from '@/src/components/Navbar';
-import Hero from '@/src/components/Hero';
-import TrustedLogos from '@/src/components/TrustedLogos';
-import About from '@/src/components/About';
-import Course from '@/src/components/Course';
-import Reviews from '@/src/components/Reviews';
-import Certificates from '@/src/components/Certificates';
-import Feedback from '@/src/components/Feedback';
-import Comparison from '@/src/components/Comparison';
-import CTA from '@/src/components/CTA';
-import Footer from '@/src/components/Footer';
-import WhatsAppBtn from '@/src/components/WhatsAppBtn';
+import Navbar from "@/src/components/Navbar";
+import Hero from "@/src/components/Hero";
+import About from "@/src/components/About";
+import Experience from "@/src/components/Experience";
+import Gallery from "@/src/components/Gallery";
+import Contact from "@/src/components/Contact";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-white">
+   <main className="bg-neutral-50 text-neutral-900">
       <Navbar />
       <Hero />
       <About />
-      <TrustedLogos />
-      <Course />
-      <Reviews />
-      <Certificates />
-      <Feedback />
-      <Comparison />
-      <CTA />
-     {/* <Footer />  */}
-      <WhatsAppBtn />
+      <Gallery />
+      <Experience />
+      <Contact />
     </main>
   );
 }

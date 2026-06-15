@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "@/src/components/Navbar";
-import Footer from "@/src/components/Footer";
+// import Footer from "@/src/components/Footer";
 import "./globals.css";
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -11,11 +11,8 @@ const jakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "HRD Institute | Degree Se Skills Tak",
-  description: "Sirf degree kafi nahi! Master the skills that global companies demand. Zero theory, Full code.",
-  icons: {
-    icon: "/icon.png"
-  }
+ title: "Ashanga Silakshana | Bakery Demi Chef de Partie",
+  description: "Artisanal bakery expert with 5+ years of experience in luxury hospitality. Specializing in premium lamination, Viennoiserie, and high-volume culinary operations.",
 };
 
 export default function RootLayout({
@@ -34,7 +31,7 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );
