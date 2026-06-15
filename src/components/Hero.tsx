@@ -42,12 +42,12 @@ export default function HeroSection() {
               {[
                 {
                   title: "WORDPRESS DEVELOPMENT",
-                  desc: "PHP, ELEMENTOR & CUSTOM THEMES",
+                  desc: "Theme Customization & Plugin Integration",
                   icon: <Globe className="w-5 h-5 stroke-[2.5]" />
                 },
                 {
                   title: "SEARCH ENGINE OPTIMIZATION",
-                  desc: "ADVANCED AUDITS, ON-PAGE & RANKING",
+                  desc: "On-PAGE, OFF-PAGE & TECHNICAL SEO",
                   icon: <Search className="w-5 h-5 stroke-[2.5]" />
                 },
                 {
@@ -56,8 +56,8 @@ export default function HeroSection() {
                   icon: <PenTool className="w-5 h-5 stroke-[2.5]" />
                 },
                 {
-                  title: "SOCIAL MEDIA MARKETING",
-                  desc: "BRANDING, ADS & CAMPAIGN MANAGEMENT",
+                  title: "Guest Posting",
+                  desc: "HIGH-AUTHORITY LINK BUILDING STRATEGIES",
                   icon: <Share2 className="w-5 h-5 stroke-[2.5]" />
                 }
               ].map((item, idx) => (

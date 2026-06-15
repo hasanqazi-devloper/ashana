@@ -17,6 +17,7 @@ export default function StudentEnrollmentForm() {
     city: "",
     age: "",
     gender: "Male",
+    education: "", // 🌟 Managed Inside State
     password: "",
     address: "",
     agree: false,
@@ -27,9 +28,18 @@ export default function StudentEnrollmentForm() {
     if (!formData.agree) return alert("Kindly accept the terms and conditions.");
     if (!formData.course) return alert("Please select your desired course path.");
 
+    // 🛑 18 TO 30 AGE LIMIT VALIDATION
+    const parsedAge = parseInt(formData.age);
+    if (isNaN(parsedAge) || parsedAge < 18 || parsedAge > 30) {
+      return alert("Age restriction limit: Only students between 18 to 30 years old are allowed to register.");
+    }
+
+    if (!formData.education) return alert("Please select your education level.");
+
     setLoading(true);
 
-    try {
+  try {
+      // 1. Create User in Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
@@ -40,6 +50,7 @@ export default function StudentEnrollmentForm() {
       const userUUID = authData?.user?.id;
 
       if (userUUID) {
+        // 2. Insert into Profiles Table (Make sure 'education' column exists in Supabase!)
         const { error: profileError } = await supabase.from("profiles").insert({
           id: userUUID,
           full_name: formData.fullName,
@@ -47,16 +58,18 @@ export default function StudentEnrollmentForm() {
           email: formData.email,
           phone_number: formData.phoneNumber,
           city: formData.city,
-          age: parseInt(formData.age) || 18,
+          age: parsedAge,
           gender: formData.gender,
+          education: formData.education, 
           address: formData.address,
           course_slug: formData.course,
-          fee_status: "Unpaid", 
+          fee_status: "Unpaid",
           role: "student"
         });
 
         if (profileError) throw profileError;
 
+        // 3. Insert into Enrollments Table
         const { error: enrollError } = await supabase.from("enrollments").insert({
           student_id: userUUID,
           course_id: formData.course === "wordpress-seo" ? 1 : formData.course === "fullstack-dev" ? 2 : 3,
@@ -65,6 +78,21 @@ export default function StudentEnrollmentForm() {
 
         if (enrollError) throw enrollError;
 
+        // 4. Send Email Notification to info@highrisedigital.io (Background Trigger)
+        try {
+          await fetch("/api/send-enrollment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+        } catch (emailError) {
+          // Email agar fail bhi ho jaye, to student ka form submit ho chuka hai, is liye block nahi karenge
+          console.error("Background Email Notification Error:", emailError);
+        }
+
+        // 5. Success Matrix Activate
         setSubmitted(true);
       }
     } catch (error: any) {
@@ -75,7 +103,7 @@ export default function StudentEnrollmentForm() {
   };
 
   const sendWhatsAppReceipt = () => {
-    const adminWhatsAppNumber = "923001234567"; 
+    const adminWhatsAppNumber = "923001234567";
     const structuredText = `🚨 *NEW HRD LMS ENROLLMENT* 🚨%0A%0A*Name:* ${formData.fullName}%0A*Father Name:* ${formData.fatherName}%0A*Course:* ${formData.course.toUpperCase()}%0A*Phone:* ${formData.phoneNumber}%0A%0A_Maine form register kar diya hai. Kindly meri fee verify karke mera dashboard account status unlock/approve kar dein. Fee screenshot neeche attached hai:_`;
 
     window.open(`https://api.whatsapp.com/send?phone=${adminWhatsAppNumber}&text=${structuredText}`, "_blank");
@@ -86,19 +114,33 @@ export default function StudentEnrollmentForm() {
 
       {/* 🔵 LEFT SIDE: MARKETING BANNER */}
       <section className="w-full lg:w-[42%] bg-gradient-to-br from-[#030712] via-[#09152e] to-[#021b3a] text-white p-8 sm:p-12 lg:p-16 lg:pt-28 flex flex-col justify-between relative min-h-[750px] lg:min-h-screen border-b lg:border-b-0 lg:border-r border-white/5 overflow-hidden">
-        
+
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-[#00f2ff]/10 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-20 -right-20 w-80 h-80 bg-blue-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="space-y-2 max-w-[240px] relative z-10">
-          <div className="bg-black/60 backdrop-blur-xl text-white p-3 rounded-2xl flex items-center gap-2.5 border border-white/10 shadow-2xl">
-            <div className="bg-gradient-to-r from-[#00f2ff] to-[#0070ff] text-black font-black px-2 py-0.5 rounded-lg text-[10px] tracking-tight uppercase shadow-[0_0_15px_rgba(0,242,255,0.4)]">
+        <div className="space-y-2 max-w-[260px] relative z-10 select-none">
+          <div className="bg-zinc-950/70 backdrop-blur-xl text-white p-3 rounded-xl flex items-center justify-between gap-3 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-[#00f2ff]/30">
+
+            {/* 🏷️ LIVE STATUS BADGE */}
+            <div className="relative flex items-center gap-1.5 bg-gradient-to-r from-[#00f2ff]/10 to-[#0070ff]/10 border border-[#00f2ff]/30 text-[#00f2ff] font-black px-2.5 py-1 rounded-md text-[9px] tracking-wider uppercase shadow-[inset_0_0_10px_rgba(0,242,255,0.1)]">
+              {/* Tiny Animated Radar Dot */}
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f2ff] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00f2ff]"></span>
+              </span>
               LMS Live
             </div>
-            <div className="text-[10px] uppercase font-black tracking-widest leading-none text-white">
-              HRD SKILLS <br />
-              <span className="text-[9px] font-bold text-zinc-400 tracking-normal">ADMISSIONS 2026</span>
+
+            {/* 📝 BRAND DETAILS */}
+            <div className="text-right space-y-0.5">
+              <div className="text-[10px] uppercase font-black tracking-[1.5px] leading-none text-white">
+                HRD SKILLS
+              </div>
+              <div className="text-[9px] font-black tracking-wider text-zinc-400 uppercase">
+                Admissions <span className="text-[#00f2ff] font-mono">2026</span>
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -116,35 +158,54 @@ export default function StudentEnrollmentForm() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <div className="bg-zinc-950/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1 hover:border-[#00f2ff]/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300 group cursor-pointer">
-              <span className="text-lg">🎯</span>
-              <h4 className="text-xs font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors">Live Projects</h4>
-              <p className="text-[10px] text-zinc-400 font-medium leading-tight">Hand-on practical portfolio building labs.</p>
+          <div className="space-y-4 pt-2">
+            {/* ⚡ PRO TECH FEATURES CARDS */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Card 1: Live Projects */}
+              <div className="bg-zinc-900/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1.5 hover:border-[#00f2ff]/40 hover:shadow-[0_0_25px_rgba(0,242,255,0.08)] transition-all duration-300 group cursor-pointer">
+                <span className="text-xl block filter drop-shadow-[0_0_8px_rgba(0,242,255,0.3)]">🎯</span>
+                <h4 className="text-[11px] font-black text-white uppercase tracking-wider group-hover:text-[#00f2ff] transition-colors">
+                  Live Projects
+                </h4>
+                <p className="text-[10px] text-zinc-400 font-bold leading-normal">
+                  Build real websites step-by-step and learn how to launch them live on the internet.
+                </p>
+              </div>
+
+              {/* Card 2: Earning Path */}
+              <div className="bg-zinc-900/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1.5 hover:border-[#00f2ff]/40 hover:shadow-[0_0_25px_rgba(0,242,255,0.08)] transition-all duration-300 group cursor-pointer">
+                <span className="text-xl block filter drop-shadow-[0_0_8px_rgba(0,242,255,0.3)]">💰</span>
+                <h4 className="text-[11px] font-black text-white uppercase tracking-wider group-hover:text-[#00f2ff] transition-colors">
+                  Earning Roadmap
+                </h4>
+                <p className="text-[10px] text-zinc-400 font-bold leading-normal">
+                  Learn the right way to get real orders on Fiverr, Upwork, and find direct clients.
+                </p>
+              </div>
+
+              {/* Card 3: 1-1 Support */}
+              <div className="bg-zinc-900/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1.5 hover:border-[#00f2ff]/40 hover:shadow-[0_0_25px_rgba(0,242,255,0.08)] transition-all duration-300 group cursor-pointer">
+                <span className="text-xl block filter drop-shadow-[0_0_8px_rgba(0,242,255,0.3)]">🔥</span>
+                <h4 className="text-[11px] font-black text-white uppercase tracking-wider group-hover:text-[#00f2ff] transition-colors">
+                  1-1 Expert Help
+                </h4>
+                <p className="text-[10px] text-zinc-400 font-bold leading-normal">
+                  Get stuck anywhere while working? Get direct help from experts to solve your problems.
+                </p>
+              </div>
             </div>
 
-            <div className="bg-zinc-950/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1 hover:border-[#00f2ff]/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300 group cursor-pointer">
-              <span className="text-lg">💰</span>
-              <h4 className="text-xs font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors">Earning Path</h4>
-              <p className="text-[10px] text-zinc-400 font-medium leading-tight">Advanced monetization masterclasses blueprint.</p>
-            </div>
-
-            <div className="bg-zinc-950/40 backdrop-blur-md border border-white/5 p-4 rounded-xl space-y-1 hover:border-[#00f2ff]/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300 group cursor-pointer">
-              <span className="text-lg">🔥</span>
-              <h4 className="text-xs font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors">1-1 Support</h4>
-              <p className="text-[10px] text-zinc-400 font-medium leading-tight">Dedicated server support channels with experts.</p>
-            </div>
-          </div>
-
-          <div className="pt-4 flex items-start gap-3 bg-zinc-950/20 border border-white/5 p-4 rounded-xl max-w-md">
-            <div className="w-8 h-8 rounded-lg bg-[#00f2ff]/10 flex items-center justify-center text-[#00f2ff] shrink-0 border border-[#00f2ff]/20 shadow-[0_0_10px_rgba(0,242,255,0.1)]">
-              📍
-            </div>
-            <div className="space-y-0.5">
-              <h5 className="text-[11px] font-black uppercase text-white tracking-wider">Headquarters Location</h5>
-              <p className="text-xs font-bold text-zinc-400 leading-tight">
-                HRD Institute, Multan, Pakistan.
-              </p>
+            {/* 📍 PREMIUM LOCATION FOOTER */}
+            <div className="flex items-start gap-3 bg-zinc-900/20 backdrop-blur-sm border border-white/5 p-4 rounded-xl w-full sm:max-w-md transition-all duration-300 hover:border-zinc-800">
+              <div className="w-9 h-9 rounded-lg bg-[#00f2ff]/10 flex items-center justify-center text-[#00f2ff] shrink-0 border border-[#00f2ff]/20 shadow-[0_0_15px_rgba(0,242,255,0.1)]">
+                📍
+              </div>
+              <div className="space-y-0.5">
+                <h5 className="text-[10px] font-black uppercase text-zinc-400 tracking-wider">Location </h5>
+                <p className="text-xs font-black text-white uppercase tracking-wide leading-tight">
+                  HRD Institute, Multan, Pakistan.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -168,6 +229,7 @@ export default function StudentEnrollmentForm() {
                     alt={`Student ${idx + 1}`}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    draggable="false"
                   />
                 </div>
               ))}
@@ -192,7 +254,7 @@ export default function StudentEnrollmentForm() {
           {submitted ? (
             // 🌟 PREMIUM VERTICAL COLUMN CARDS LAYOUT
             <div className="w-full flex flex-col gap-6 animate-in fade-in zoom-in-95 duration-500">
-              
+
               {/* CARD 1: FORM STATUS / SUCCESS BADGE */}
               <div className="border border-white/10 bg-[#0d1527] shadow-[0_20px_50px_rgba(0,242,255,0.05)] rounded-2xl p-8 md:p-12 text-center space-y-6 relative overflow-hidden group">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 to-blue-500" />
@@ -210,11 +272,11 @@ export default function StudentEnrollmentForm() {
               {/* CARD 2: OFFICIAL PAYMENT ACCOUNTS (Sir Abdul Basit Details) */}
               <div className="border border-white/10 bg-[#0b0f19]/90 backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] rounded-2xl p-8 flex flex-col space-y-4 relative overflow-hidden text-left">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500" />
-                
+
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 block mb-1">Official Fee Accounts</span>
                   <h3 className="text-xl font-black text-white uppercase tracking-wide italic">Payment Details</h3>
-                  
+
                   {/* Account Rows Stretched Cleanly */}
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Bank Card Info */}
@@ -237,7 +299,7 @@ export default function StudentEnrollmentForm() {
               {/* CARD 3: WHATSAPP ACTION CALL SUBMISSION */}
               <div className="border border-white/10 bg-[#0d1527]/80 backdrop-blur-md shadow-[0_15px_40px_rgba(37,211,102,0.03)] rounded-2xl p-8 text-center flex flex-col justify-center items-center space-y-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500 to-green-400" />
-                
+
                 <div className="space-y-2">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[#25D366] block">Final Step Activation</span>
                   <h3 className="text-xl font-black text-white uppercase tracking-tight">Unlock Your Batch</h3>
@@ -259,11 +321,13 @@ export default function StudentEnrollmentForm() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* 🏷️ SECTION HEADER */}
               <div className="space-y-1 text-left border-l-[3px] border-[#00f2ff] pl-4 shadow-[inset_10px_0_10px_-10px_rgba(0,242,255,0.2)]">
                 <span className="text-[10px] font-black uppercase tracking-[2.5px] text-[#00f2ff] block">New Admission</span>
                 <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white uppercase leading-none">Student Enrollment</h2>
               </div>
 
+              {/* 📚 COURSE SELECTION */}
               <div className="p-4 bg-zinc-900/30 border border-white/5 rounded-xl space-y-2 focus-within:border-[#00f2ff]/50 focus-within:shadow-[0_0_20px_rgba(0,242,255,0.05)] transition-all duration-300">
                 <label className="text-[10px] font-black uppercase tracking-wider text-[#00f2ff] block">Select Desired Course</label>
                 <select
@@ -274,68 +338,126 @@ export default function StudentEnrollmentForm() {
                 >
                   <option value="" className="bg-[#0b0f19] text-zinc-400">-- SELECT YOUR PATH --</option>
                   <option value="wordpress-seo" className="bg-[#0b0f19] text-white">WordPress Custom Architecture & Advanced SEO</option>
-                  {/* <option value="fullstack-dev" className="bg-[#0b0f19] text-white">Full-Stack Development with Live Projects</option> */}
-                  {/* <option value="global-freelancing" className="bg-[#0b0f19] text-white">Global Freelancing Blueprint Masterclass</option> */}
                 </select>
               </div>
 
+              {/* 👥 TWO-COLUMN BALANCED GRID */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Full Name */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Full Name</label>
                   <input type="text" required placeholder="Enter full name" value={formData.fullName} onChange={(e) => setFormData({ ...formData, fullName: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
                 </div>
+
+                {/* Father Name */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Father Name</label>
                   <input type="text" required placeholder="Enter father name" value={formData.fatherName} onChange={(e) => setFormData({ ...formData, fatherName: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
                 </div>
+
+                {/* Email Address */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Email Address</label>
                   <input type="email" required placeholder="name@example.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
                 </div>
+
+                {/* Phone Number */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Phone Number</label>
                   <input type="tel" required placeholder="03XXXXXXXXX" value={formData.phoneNumber} onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
                 </div>
 
+                {/* City */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">City</label>
                   <input type="text" required placeholder="e.g. Multan" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
                 </div>
+
+                {/* Age */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Age</label>
-                  <input type="number" required placeholder="Your Age" value={formData.age} onChange={(e) => setFormData({ ...formData, age: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
+                  <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Age (18-30)</label>
+                  <input type="number" required min="18" max="30" placeholder="Your Age" value={formData.age} onChange={(e) => setFormData({ ...formData, age: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
                 </div>
-                <div className="space-y-1.5 sm:col-span-2">
+
+                {/* Gender */}
+                <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Gender</label>
                   <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white font-bold focus:outline-none focus:border-[#00f2ff]/60 transition-all duration-300 cursor-pointer">
                     <option value="Male" className="bg-[#0b0f19]">Male</option>
                     <option value="Female" className="bg-[#0b0f19]">Female</option>
                   </select>
                 </div>
+
+                {/* 🎓 EDUCATION LEVEL SECTION (Stretched Full Width for Visual Balance) */}
+                <div className="sm:col-span-2 space-y-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Education Level</label>
+                    <select
+                      required
+                      value={formData.education === "Custom" || !["", "Matric / O-Level", "Intermediate / A-Level", "Undergraduate (Bachelors)", "Graduate (Masters)", "Other"].includes(formData.education) ? "Custom" : formData.education}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "Custom") {
+                          setFormData({ ...formData, education: "" });
+                        } else {
+                          setFormData({ ...formData, education: val });
+                        }
+                      }}
+                      className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white font-bold focus:outline-none focus:border-[#00f2ff]/60 transition-all duration-300 cursor-pointer"
+                    >
+                      <option value="" disabled className="bg-[#0b0f19] text-zinc-500">Select your education</option>
+                      <option value="Matric / O-Level" className="bg-[#0b0f19]">Matric / O-Levels</option>
+                      <option value="Intermediate / A-Level" className="bg-[#0b0f19]">Intermediate / A-Levels</option>
+                      <option value="Undergraduate (Bachelors)" className="bg-[#0b0f19]">Undergraduate (Bachelors)</option>
+                      <option value="Graduate (Masters)" className="bg-[#0b0f19]">Graduate (Masters)</option>
+                      <option value="Other" className="bg-[#0b0f19]">Other / Diploma</option>
+                      <option value="Custom" className="bg-[#0b0f19] text-[#00f2ff]">✨ Custom / Other Option</option>
+                    </select>
+                  </div>
+
+                  {/* 📝 CONDITIONAL CUSTOM INPUT */}
+                  {(formData.education === "" || !["Matric / O-Level", "Intermediate / A-Level", "Undergraduate (Bachelors)", "Graduate (Masters)", "Other"].includes(formData.education)) && (
+                    <div className="space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-300">
+                      <label className="text-[10px] font-black uppercase tracking-wider text-[#00f2ff] block">Specify Your Education / Qualification</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g., DAE Mechanical, ACCA, M.Phil, etc."
+                        value={formData.education}
+                        onChange={(e) => setFormData({ ...formData, education: e.target.value })}
+                        className="w-full bg-zinc-900/30 border border-[#00f2ff]/40 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff] focus:bg-zinc-900/50 transition-all duration-300"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
 
+              {/* 🔐 PASSWORD BLOCK */}
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Portal Security Password</label>
                 <input type="password" required placeholder="Choose a strong password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
               </div>
 
+              {/* 🏠 ADDRESS BLOCK */}
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">Residential Address</label>
                 <textarea rows={2} required placeholder="Enter home address" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} className="w-full bg-zinc-900/30 border border-white/5 rounded-lg px-4 py-2.5 text-sm text-white resize-none focus:outline-none focus:border-[#00f2ff]/60 focus:bg-zinc-900/50 transition-all duration-300" />
               </div>
 
+              {/* ☑️ TERMS AND CONDITIONS */}
               <label className="flex items-start gap-2.5 select-none cursor-pointer group">
                 <input type="checkbox" checked={formData.agree} onChange={(e) => setFormData({ ...formData, agree: e.target.checked })} className="mt-1 accent-[#00f2ff]" />
                 <span className="text-[11px] font-bold uppercase text-zinc-400 group-hover:text-zinc-300 transition-colors">I confirm details are correct and agree to terms.</span>
               </label>
 
+              {/* 🚀 SUBMIT BUTTON */}
               <button
                 type="submit"
                 disabled={loading}
                 className="group relative overflow-hidden w-full flex items-center justify-center font-black text-xs uppercase tracking-[2px] h-[52px] px-6 rounded-xl bg-white text-black border border-white/10 shadow-lg transition-all duration-500 ease-out active:scale-95 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
               >
                 <div className="absolute inset-0 w-0 bg-gradient-to-r from-[#0070ff] to-[#00f2ff] transition-all duration-500 ease-out group-hover:w-full" />
-                
+
                 <span className="relative z-10 flex items-center gap-1.5 group-hover:text-black transition-colors duration-500 ease-out">
                   {loading ? (
                     <>
@@ -345,11 +467,11 @@ export default function StudentEnrollmentForm() {
                   ) : (
                     <>
                       Confirm & Process Admission
-                      <svg 
-                        className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5" 
-                        fill="none" 
-                        viewBox="0 0 24 24" 
-                        stroke="currentColor" 
+                      <svg
+                        className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                         strokeWidth="3"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />

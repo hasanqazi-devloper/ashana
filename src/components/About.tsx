@@ -75,45 +75,45 @@ export default function About() {
                 Skip boring lectures. You will actively audit real websites, conduct advanced keyword research, build topical authority, and rank pages on Google—building a live portfolio to win high-paying international clients.
               </motion.p>
 
-          {/* 🎴 VERTICAL CARDS CONTAINER */}
-<div className="space-y-4 w-full max-w-xl">
+    {/* 🎴 VERTICAL CARDS CONTAINER */}
+<div className="space-y-5 w-full max-w-xl mx-auto md:mx-0">
   {[
     {
       title: "Guaranteed Internship",
-      desc: "Top Students get hired in our own Digital Agency.",
+      desc: "Top Students get hired in our own Digital Agency to work on real-world industry tasks.",
     },
     {
       title: "Lifetime Mentorship",
-      desc: "Free lifetime support from expert mentors.",
+      desc: "Get free uncompromised lifetime 1-1 support channels from premium expert mentors.",
     },
     {
       title: "Online Community",
-      desc: "Connect, network, and grow together.",
+      desc: "Connect, network, trade projects, and grow together with elite global batch peers.",
     }
   ].map((feat, idx) => (
     <div
       key={idx}
-      className="group flex items-start sm:items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#0d1321]/60 to-[#070a12]/40 border border-white/5 hover:border-blue-500/30 hover:bg-[#111827]/40 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_10px_30px_rgba(59,130,246,0.08)] transition-all duration-300 relative overflow-hidden text-left"
+      className="group flex items-start gap-4 p-5 rounded-xl bg-gradient-to-r from-[#0d1321]/90 to-[#070a12]/70 border border-white/10 hover:border-blue-500/40 hover:bg-[#111827]/60 shadow-[0_4px_25px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_35px_rgba(59,130,246,0.12)] transition-all duration-300 relative overflow-hidden text-left"
     >
       {/* ⚡ Left Edge Glow Line Indicator */}
-      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-blue-500 to-cyan-400 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center rounded-r" />
+      <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-gradient-to-b from-[#00f2ff] to-[#3b82f6] scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center rounded-r" />
 
       {/* Inner Ambient Glow Layer */}
-      <div className="absolute -inset-px bg-gradient-to-r from-blue-500/[0.03] via-cyan-500/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      <div className="absolute -inset-px bg-gradient-to-r from-blue-500/[0.05] via-cyan-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {/* Checkmark Circular Status Badge */}
-      <div className="w-7 h-7 rounded-lg border border-blue-500/20 bg-blue-500/5 flex items-center justify-center text-blue-400 group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-500 group-hover:text-black group-hover:border-transparent group-hover:scale-105 transition-all duration-300 shrink-0 shadow-inner mt-0.5 sm:mt-0">
-        <svg className="w-3.5 h-3.5 stroke-[3.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="w-8 h-8 rounded-lg border border-blue-500/30 bg-blue-500/10 flex items-center justify-center text-[#00f2ff] group-hover:bg-gradient-to-br group-hover:from-[#00f2ff] group-hover:to-[#3b82f6] group-hover:text-black group-hover:border-transparent group-hover:scale-105 transition-all duration-300 shrink-0 shadow-md mt-0.5">
+        <svg className="w-4 h-4 stroke-[3.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
 
       {/* Feature Information Text */}
-      <div className="flex flex-col gap-1 min-w-0">
-        <h4 className="text-xs sm:text-sm font-black text-zinc-100 uppercase tracking-wider group-hover:text-blue-400 transition-colors duration-200">
+      <div className="flex flex-col gap-1.5 min-w-0">
+        <h4 className="text-sm sm:text-base font-black text-white uppercase tracking-wide group-hover:text-[#00f2ff] transition-colors duration-200">
           {feat.title}
         </h4>
-        <p className="text-[11px] sm:text-xs text-zinc-400 font-medium leading-relaxed group-hover:text-zinc-300 transition-colors duration-200">
+        <p className="text-xs sm:text-[13px] text-zinc-300 font-medium leading-relaxed group-hover:text-white transition-colors duration-200">
           {feat.desc}
         </p>
       </div>
