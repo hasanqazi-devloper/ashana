@@ -11,8 +11,8 @@ const jakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
- title: "Ashanga Silakshana | Bakery Demi Chef de Partie",
-  description: "Artisanal bakery expert with 5+ years of experience in luxury hospitality. Specializing in premium lamination, Viennoiserie, and high-volume culinary operations.",
+  title: "Kenneth Ausaji | Head of Export Operations at SHC Agro Allied Ltd ",
+  description: "Award-winning pastry expert with 5+ years of experience in world-class luxury resorts. Specializing in precision lamination, artisanal bread plating, and high-volume fine dining culinary operations.",
 };
 
 export default function RootLayout({
